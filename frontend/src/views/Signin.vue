@@ -77,8 +77,19 @@ export default {
 
                 user.authenticateUser(authDeteils, {
                     onSuccess: data => {
-                        // this.signInSuccess = true
+                        localStorage.setItem('token', data.getIdToken().getJwtToken())
+                        console.log(data.getIdToken().getJwtToken())
                         console.log('onSuccess: ', data)
+                        // this.signInSuccess = true
+                        this.$emit('authen-user')
+                        Swal.fire({
+                            title: 'เข้าสู่ระบบสำเร็จ',
+                            icon: 'success',
+                            // confirmButtonText: 'OK'
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        this.$router.push('/')
                     },
                     onFailure: err => {
                         console.log('onFailure : ', err)
@@ -87,8 +98,17 @@ export default {
                         console.log('newPasswordRequired: ', data)
                     }
                 })
+                // this.$emit('authen-user')
+                // Swal.fire({
+                //     title: 'เข้าสู่ระบบสำเร็จ',
+                //     icon: 'success',
+                //     // confirmButtonText: 'OK'
+                //     showConfirmButton: false,
+                //     timer: 1500
+                // })
+                // this.$router.push('/')
             }
-            // if (this.signInSuccess === true) {
+            // if (this.signInSuccess == true) {
             //     Swal.fire({
             //         title: 'เข้าสู่ระบบสำเร็จ',
             //         icon: 'success',
@@ -96,6 +116,7 @@ export default {
             //         showConfirmButton: false,
             //         timer: 1500
             //     })
+            //     this.$emit('authen-user')
             //     this.$router.push('/')
             // }
         }

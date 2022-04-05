@@ -3,7 +3,7 @@
         <h3 class="mt-5">ลงทะเบียน</h3>
         <div class="col-lg-5 m-auto">
             <form @submit.prevent="submitSignup()">
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-lg-6">
                         <label class="form-lable mb-1">First Name</label>
                         <input class="form-control" type="first_name" placeholder="John" for="first_name" v-model="singup.first_name">
@@ -12,11 +12,11 @@
                         <label class="form-lable mb-1">Last Name</label>
                         <input class="form-control" type="last_name" placeholder="Doe" for="last_name" v-model="singup.last_name">
                     </div>
-                </div>-->
-                <!-- <div class="mt-3">
+                </div>
+                <div class="mt-3">
                     <label class="form-lable mb-1">Username</label>
                     <input class="form-control" type="text" placeholder="username" for="username" v-model="singup.username">
-                </div>-->
+                </div>
                 <div class="mt-3">
                     <label class="form-lable mb-1">Email</label>
                     <input
@@ -37,10 +37,10 @@
                         v-model="singup.password"
                     />
                 </div>
-                <!-- <div class="mt-3">
+                <div class="mt-3">
                     <label class="form-lable mb-1">Confirm Password</label>
                     <input class="form-control" type="password" placeholder="Confirm Password" for="confirm_passeord" v-model="singup.confirm_passeord">
-                </div>-->
+                </div>
                 <div class="d-grid">
                     <button class="btn btn-primary my-4" type="submit">ลงะทเบียน</button>
                 </div>
@@ -58,12 +58,12 @@ export default {
     data() {
         return {
             singup: {
-                // first_name: '',
-                // last_name: '',
-                // username: '',
+                first_name: '',
+                last_name: '',
+                username: '',
                 email: '',
-                password: ''
-                // confirm_passeord: ''
+                password: '',
+                confirm_passeord: ''
             }
         }
     },

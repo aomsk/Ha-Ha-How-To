@@ -5,7 +5,7 @@
                 <div class="card mt-5">
                     <div class="card-body">
                         <h4 class="card-title">{{ post.title }}</h4>
-                        <a class="btn btn-dark">อ่านต่อ</a>
+                        <button class="btn btn-dark" @click="testClick">อ่านต่อ</button>
                     </div>
                 </div>
             </div>
@@ -79,6 +79,10 @@ export default {
             // . catch(error => {
             //     console.log(error)
             // })
+        },
+        testClick() {
+            console.log('testClick')
+            this.$router.push('/post/2')
         }
     }
 }
