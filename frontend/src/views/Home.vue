@@ -10,10 +10,14 @@
                 </div>
             </div>
         </div>
+        <div class="text-primary">{{ products }}</div>
+        <div class="text-danger">{{ one_products }}</div>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 const posts = [
     {
         id: '1',
@@ -35,7 +39,46 @@ const posts = [
 export default {
     data() {
         return {
-            posts
+            posts,
+            products: null,
+            one_products: null
+        }
+    },
+    created() {
+        axios
+            .get('http://tutorialnodejs-env.eba-mrvzp3m5.us-east-1.elasticbeanstalk.com/product/all', {
+                // params: {
+                //     productId: '1'
+                // }
+            })
+            .then(response => {
+                this.products = response.data.products
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        axios
+            .get('http://tutorialnodejs-env.eba-mrvzp3m5.us-east-1.elasticbeanstalk.com/product', {
+                params: {
+                    productId: '1'
+                }
+            })
+            .then(response => {
+                this.one_products = response.data
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    },
+    methods: {
+        getData() {
+            // axios.get('http://tutorialnodejs-env.eba-mrvzp3m5.us-east-1.elasticbeanstalk.com/product/all')
+            // .then(response => {
+            //     this.products = response.data.products
+            // })
+            // . catch(error => {
+            //     console.log(error)
+            // })
         }
     }
 }
