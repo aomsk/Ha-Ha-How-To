@@ -1,5 +1,33 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+// function isAuthenticated() {
+//     let cognitoUser = this.getCurrentUser()
+//     if (cognitoUser != null) {
+//         cognitoUser.getSession((err, session) => {
+//         if (err) {
+//             return (err, false)
+//         }
+//         return (session, true)
+//         })
+//     } else {
+//         (null, false)
+//     }
+// }
+
+// function requireAuth(to, from, next) {
+//     isAuthenticated((err, loggedIn) => {
+//         if (err) return next()
+//         if (!loggedIn) {
+//             next({
+//                 path: '/signin',
+//                 query: { redirect: to.fullPath }
+//             })
+//         } else {
+//             next()
+//         }
+//     })
+// }
+
 const routes = [
     {
         path: '/',
@@ -34,7 +62,8 @@ const routes = [
     {
         path: '/my-account',
         name: 'Account',
-        component: () => import('../views/Account.vue')
+        component: () => import('../views/Account.vue'),
+        // beforeEnter: requireAuth
     }
 ]
 
