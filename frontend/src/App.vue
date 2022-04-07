@@ -22,12 +22,6 @@
                     <li class="nav-item">
                         <router-link class="nav-link" to="/">หน้าแรก</router-link>
                     </li>
-                    <!-- <li class="nav-item">
-                        <router-link class="nav-link" to="/signin">เข้าสู่ระบบ</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link class="nav-link" to="/signup">ลงทะเบียน</router-link>
-                    </li>-->
                     <template v-if="!isAuthen">
                         <li class="nav-item">
                             <router-link class="nav-link" to="/signin">เข้าสู่ระบบ</router-link>
@@ -58,7 +52,7 @@
 
 <script>
 import UserPool from '../src/config/UserPool'
-// import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 export default {
     data() {
@@ -85,7 +79,7 @@ export default {
                 //     icon: 'success',
                 //     // confirmButtonText: 'OK'
                 //     showConfirmButton: false,
-                //     timer: 4000
+                //     timer: 2000,
                 // })
                 window.location.reload()
             }

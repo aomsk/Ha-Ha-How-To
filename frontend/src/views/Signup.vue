@@ -51,8 +51,6 @@
 
 <script>
 import { CognitoUserAttribute } from 'amazon-cognito-identity-js'
-// import config from '../config';
-// import CognitoAuth from '../cognito';
 import UserPool from '../config/UserPool'
 export default {
     data() {

@@ -46,6 +46,7 @@ export default {
     //         v$: useVuelidate()
     //     }
     // },
+    emits: ['authen-user'],
     data() {
         return {
             signin: {
@@ -98,27 +99,7 @@ export default {
                         console.log('newPasswordRequired: ', data)
                     }
                 })
-                // this.$emit('authen-user')
-                // Swal.fire({
-                //     title: 'เข้าสู่ระบบสำเร็จ',
-                //     icon: 'success',
-                //     // confirmButtonText: 'OK'
-                //     showConfirmButton: false,
-                //     timer: 1500
-                // })
-                // this.$router.push('/')
             }
-            // if (this.signInSuccess == true) {
-            //     Swal.fire({
-            //         title: 'เข้าสู่ระบบสำเร็จ',
-            //         icon: 'success',
-            //         // confirmButtonText: 'OK'
-            //         showConfirmButton: false,
-            //         timer: 1500
-            //     })
-            //     this.$emit('authen-user')
-            //     this.$router.push('/')
-            // }
         }
     }
     // validations() {

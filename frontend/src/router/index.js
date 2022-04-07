@@ -1,32 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
-// function isAuthenticated() {
-//     let cognitoUser = this.getCurrentUser()
-//     if (cognitoUser != null) {
-//         cognitoUser.getSession((err, session) => {
-//         if (err) {
-//             return (err, false)
-//         }
-//         return (session, true)
-//         })
-//     } else {
-//         (null, false)
-//     }
-// }
-
-// function requireAuth(to, from, next) {
-//     isAuthenticated((err, loggedIn) => {
-//         if (err) return next()
-//         if (!loggedIn) {
-//             next({
-//                 path: '/signin',
-//                 query: { redirect: to.fullPath }
-//             })
-//         } else {
-//             next()
-//         }
-//     })
-// }
+import Swal from 'sweetalert2'
 
 const routes = [
     {
@@ -69,7 +42,6 @@ const routes = [
         name: 'Account',
         meta: { login: true },
         component: () => import('../views/Account.vue'),
-        // beforeEnter: requireAuth
     }
 ]
 
