@@ -1,65 +1,69 @@
 <template>
     <div>
         <h1>Create Post</h1>
-        <form @submit.prevent="createPost()">
-            <div>
-                <label class="form-lable mb-1">Title</label>
-                <input
-                    class="form-control form-control-lg"
-                    type="text"
-                    placeholder="ตั้งขื่อ How To กันเถอะ"
-                    for="title"
-                    v-model="post.title"
-                />
+        <div>
+            <editor v-model="content" />
+
+            <div class="content">
+                <hr>
+                <h1>Preview</h1>
+                <!-- <pre><code>{{ content }}</code></pre> -->
+                <p v-html="content"></p>
             </div>
-            <div class="mb-3">
-                <label for="formFileMultiple" class="form-label">Upload imags</label>
-                <input class="form-control" type="file" multiple />
-            </div>
-            <div class="btn-toolbar ml-2" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group me-2" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-primary">B</button>
-                    <button type="button" class="btn btn-primary"></button>
-                    <button type="button" class="btn btn-primary">3</button>
-                    <button type="button" class="btn btn-primary">4</button>
-                </div>
-                <!-- <div class="btn-group me-2" role="group" aria-label="Second group">
-                    <button type="button" class="btn btn-secondary">5</button>
-                    <button type="button" class="btn btn-secondary">6</button>
-                    <button type="button" class="btn btn-secondary">7</button>
-                </div>
-                <div class="btn-group" role="group" aria-label="Third group">
-                    <button type="button" class="btn btn-info">8</button>
-                </div> -->
-            </div>
-            <div class="mb-3">
-                <label for class="form-label">Content</label>
-                <textarea class="form-control" rows="3"></textarea>
-            </div>
-        </form>
+        </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
-import swal from 'sweetalert2'
+// import axios from 'axios'
+// import swal from 'sweetalert2'
+import Editor from '../components/Editor.vue'
 
 export default {
-    data() {
-        return {
-            post: {
-                title: '',
-                content: ''
-            }
-        }
-    }
-    // methods: {
-    //     createPost() {
+  components: {
+    Editor,
+  },
 
-    //     },
-    // }
+  data() {
+    return {
+      content: '<p>A Vue.js wrapper component for tiptap to use <code>v-model</code>.</p>',
+    }
+  },
 }
 </script>
 
-<style>
+<style lang="scss">
+/* Basic editor styles */
+.ProseMirror {
+  > * + * {
+    margin-top: 0.75em;
+  }
+
+  code {
+    background-color: rgba(#616161, 0.1);
+    color: #616161;
+  }
+}
+
+.content {
+  padding: 1rem 0 0;
+
+  h3 {
+    margin: 1rem 0 0.5rem;
+  }
+
+  pre {
+    border-radius: 5px;
+    color: #333;
+  }
+
+  code {
+    display: block;
+    white-space: pre-wrap;
+    font-size: 0.8rem;
+    padding: 0.75rem 1rem;
+    background-color:#e9ecef;
+    color: #495057;
+  }
+}
 </style>
