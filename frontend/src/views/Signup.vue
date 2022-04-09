@@ -6,16 +6,34 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <label class="form-lable mb-1">First Name</label>
-                        <input class="form-control" type="first_name" placeholder="John" for="first_name" v-model="singup.first_name">
+                        <input
+                            class="form-control"
+                            type="first_name"
+                            placeholder="John"
+                            for="first_name"
+                            v-model="singup.first_name"
+                        />
                     </div>
                     <div class="col-lg-6">
                         <label class="form-lable mb-1">Last Name</label>
-                        <input class="form-control" type="last_name" placeholder="Doe" for="last_name" v-model="singup.last_name">
+                        <input
+                            class="form-control"
+                            type="last_name"
+                            placeholder="Doe"
+                            for="last_name"
+                            v-model="singup.last_name"
+                        />
                     </div>
                 </div>
                 <div class="mt-3">
                     <label class="form-lable mb-1">Username</label>
-                    <input class="form-control" type="text" placeholder="username" for="username" v-model="singup.username">
+                    <input
+                        class="form-control"
+                        type="text"
+                        placeholder="username"
+                        for="username"
+                        v-model="singup.username"
+                    />
                 </div>
                 <div class="mt-3">
                     <label class="form-lable mb-1">Email</label>
@@ -37,10 +55,16 @@
                         v-model="singup.password"
                     />
                 </div>
-                <div class="mt-3">
+                <!-- <div class="mt-3">
                     <label class="form-lable mb-1">Confirm Password</label>
-                    <input class="form-control" type="password" placeholder="Confirm Password" for="confirm_passeord" v-model="singup.confirm_passeord">
-                </div>
+                    <input
+                        class="form-control"
+                        type="password"
+                        placeholder="Confirm Password"
+                        for="confirm_passeord"
+                        v-model="singup.confirm_passeord"
+                    />
+                </div>-->
                 <div class="d-grid">
                     <button class="btn btn-primary my-4" type="submit">ลงะทเบียน</button>
                 </div>
@@ -52,6 +76,8 @@
 <script>
 import { CognitoUserAttribute } from 'amazon-cognito-identity-js'
 import UserPool from '../config/UserPool'
+import axios from 'axios'
+
 export default {
     data() {
         return {
@@ -62,12 +88,33 @@ export default {
                 email: '',
                 password: '',
                 confirm_passeord: ''
-            }
+            },
+            data_user: null,
+            singup_success: false
         }
     },
     methods: {
+        async postUserToDB() {
+            await axios({
+                method: 'post',
+                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/user/',
+                data: {
+                    email: this.singup.email,
+                    first_name: this.singup.first_name,
+                    last_name: this.singup.last_name,
+                    username: this.singup.username,
+                    password: this.singup.password
+                }
+            })
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error.response.data)
+                })
+        },
+
         submitSignup() {
-            console.log(this.singup.password);
             let attributeList = [
                 new CognitoUserAttribute({
                     Name: 'email',
@@ -76,9 +123,11 @@ export default {
             ]
             UserPool.signUp(this.singup.email, this.singup.password, attributeList, null, (err, data) => {
                 if (err) {
-                    console.log(err)
+                    console.log('err : ', err)
+                } else {
+                    console.log('data : ', data)
+                    this.postUserToDB()
                 }
-                console.log(data)
             })
         }
     }
