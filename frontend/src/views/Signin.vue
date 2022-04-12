@@ -53,7 +53,8 @@ export default {
                 email: '',
                 password: ''
             },
-            signInSuccess: false
+            signInSuccess: false,
+            error: false
         }
     },
     methods: {
@@ -94,6 +95,16 @@ export default {
                     },
                     onFailure: err => {
                         console.log('onFailure : ', err)
+                        this.error = true
+                        if (this.error == true) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Incorrect username or password',
+                                // showConfirmButton: false,
+                                // timer: 1500
+                            })
+                        }
                     },
                     newPasswordRequired: data => {
                         console.log('newPasswordRequired: ', data)

@@ -77,6 +77,7 @@
 import { CognitoUserAttribute } from 'amazon-cognito-identity-js'
 import UserPool from '../config/UserPool'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
     data() {
@@ -108,6 +109,14 @@ export default {
             })
                 .then(response => {
                     console.log(response.data)
+                    Swal.fire({
+                        title: 'ลงทะเบียนสำเร็จ',
+                        icon: 'success',
+                        // confirmButtonText: 'OK'
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    this.$router.push('/signin')
                 })
                 .catch(error => {
                     console.log(error.response.data)
@@ -115,20 +124,29 @@ export default {
         },
 
         submitSignup() {
-            let attributeList = [
-                new CognitoUserAttribute({
-                    Name: 'email',
-                    Value: this.singup.email
+            if (this.singup.first_name == '' || this.singup.last_name == '' || this.singup.email == '' || this.singup.username == '' || this.singup.password == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'กรุณากรอกข้อมูล!!!'
                 })
-            ]
-            UserPool.signUp(this.singup.email, this.singup.password, attributeList, null, (err, data) => {
-                if (err) {
-                    console.log('err : ', err)
-                } else {
-                    console.log('data : ', data)
-                    this.postUserToDB()
-                }
-            })
+            }
+            if (this.singup.first_name != '' || this.singup.last_name != '' || this.singup.email != '' || this.singup.username != '' || this.singup.password != '') {
+                let attributeList = [
+                    new CognitoUserAttribute({
+                        Name: 'email',
+                        Value: this.singup.email
+                    })
+                ]
+                UserPool.signUp(this.singup.email, this.singup.password, attributeList, null, (err, data) => {
+                    if (err) {
+                        console.log('err : ', err)
+                    } else {
+                        console.log('data : ', data)
+                        this.postUserToDB()
+                    }
+                })
+            }
         }
     }
 }
