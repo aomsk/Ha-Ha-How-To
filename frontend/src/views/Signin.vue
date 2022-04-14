@@ -10,7 +10,7 @@
                         type="email"
                         placeholder="example@gmail.com"
                         for="email"
-                        v-model="signup.email"
+                        v-model="signin.email"
                     />
                     <!-- :class="{ 'is-invalid': v$.signin.email.$error }" -->
                     <!-- <div v-if="v$.signin.password.$error" class="my-2 text-danger">กรุณากรอกอีเมล</div> -->
@@ -22,7 +22,7 @@
                         type="password"
                         placeholder="password"
                         for="password"
-                        v-model="signup.password"
+                        v-model="signin.password"
                     />
                 </div>
                 <div class="d-grid">
@@ -37,6 +37,8 @@
 // import useVuelidate from '@vuelidate/core'
 // import { required, email } from '@vuelidate/validators'
 import Swal from 'sweetalert2'
+import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
+import UserPool from '../config/UserPool'
 
 export default {
     // setup() {
@@ -44,26 +46,73 @@ export default {
     //         v$: useVuelidate()
     //     }
     // },
+    emits: ['authen-user'],
     data() {
         return {
-            signup: {
+            signin: {
                 email: '',
                 password: ''
-            }
+            },
+            signInSuccess: false,
+            error: false
         }
     },
     methods: {
         submitSignin() {
-            Swal.fire({
-                title: 'เข้าสู่ระบบสำเร็จ',
-                icon: 'success',
-                // confirmButtonText: 'OK'
-                showConfirmButton: false,
-                timer: 1500
-            })
-            this.$router.push('/')
+            if (this.signin.email == '' || this.signin.password == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter email or password!!!'
+                })
+            }
+            if (this.signin.email != '' || this.signin.password != '') {
+                const user = new CognitoUser({
+                    Username: this.signin.email,
+                    Pool: UserPool
+                })
+
+                const authDeteils = new AuthenticationDetails({
+                    Username: this.signin.email,
+                    Password: this.signin.password
+                })
+
+                user.authenticateUser(authDeteils, {
+                    onSuccess: data => {
+                        localStorage.setItem('token', data.getIdToken().getJwtToken())
+                        // console.log(data.getIdToken().getJwtToken())
+                        console.log('onSuccess: ', data)
+                        // this.signInSuccess = true
+                        this.$emit('authen-user')
+                        Swal.fire({
+                            title: 'เข้าสู่ระบบสำเร็จ',
+                            icon: 'success',
+                            // confirmButtonText: 'OK'
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        this.$router.push('/')
+                    },
+                    onFailure: err => {
+                        console.log('onFailure : ', err)
+                        this.error = true
+                        if (this.error == true) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Incorrect username or password',
+                                // showConfirmButton: false,
+                                // timer: 1500
+                            })
+                        }
+                    },
+                    newPasswordRequired: data => {
+                        console.log('newPasswordRequired: ', data)
+                    }
+                })
+            }
         }
-    },
+    }
     // validations() {
     //     return {
     //         email: { required, email },
