@@ -74,13 +74,6 @@ export default {
                 user.signOut()
                 console.log('user: ', user)
                 localStorage.clear()
-                // Swal.fire({
-                //     title: 'ออกจากระบบสำเร็จ',
-                //     icon: 'success',
-                //     // confirmButtonText: 'OK'
-                //     showConfirmButton: false,
-                //     timer: 2000,
-                // })
                 window.location.reload()
             }
         }

@@ -52,6 +52,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const isLoggedIn = !!localStorage.getItem('token')
+    // const isLoggedIn = localStorage.getItem('token')
 
     if (to.meta.login && !isLoggedIn) {
         Swal.fire({

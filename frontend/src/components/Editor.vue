@@ -3,63 +3,96 @@
         <button
             @click="editor.chain().focus().toggleBold().run()"
             :class="{ 'is-active': editor.isActive('bold') }"
-            class="btn btn-outline-secondary"
+            class="btn btn-outline-secondary m-1"
         >
             <font-awesome-icon icon="bold" />
         </button>
         <button
             @click="editor.chain().focus().toggleItalic().run()"
             :class="{ 'is-active': editor.isActive('italic') }"
-            class="btn btn-outline-secondary"
+            class="btn btn-outline-secondary m-1"
         >
-        <font-awesome-icon icon="italic" />
+            <font-awesome-icon icon="italic" />
         </button>
-        <button
-            @click="editor.chain().focus().toggleStrike().run()"
-            :class="{ 'is-active': editor.isActive('strike') }"
-        >strike</button>
-        <button
+        <!-- <button
             @click="editor.chain().focus().setParagraph().run()"
             :class="{ 'is-active': editor.isActive('paragraph') }"
-        >paragraph</button>
+        >paragraph</button>-->
         <button
             @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
             :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
-        >h1</button>
+            class="btn btn-outline-secondary m-1"
+        >
+            <font-awesome-icon icon="heading" />
+            <font-awesome-icon icon="1" />
+        </button>
+
         <button
             @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
             :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }"
-        >h2</button>
+            class="btn btn-outline-secondary m-1"
+        >
+            <font-awesome-icon icon="heading" />
+            <font-awesome-icon icon="2" />
+        </button>
         <button
             @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
             :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }"
-        >h3</button>
+            class="btn btn-outline-secondary m-1"
+        >
+            <font-awesome-icon icon="heading" />
+            <font-awesome-icon icon="3" />
+        </button>
         <button
             @click="editor.chain().focus().toggleHeading({ level: 4 }).run()"
             :class="{ 'is-active': editor.isActive('heading', { level: 4 }) }"
-        >h4</button>
+            class="btn btn-outline-secondary m-1"
+        >
+            <font-awesome-icon icon="heading" />
+            <font-awesome-icon icon="4" />
+        </button>
         <button
             @click="editor.chain().focus().toggleHeading({ level: 5 }).run()"
             :class="{ 'is-active': editor.isActive('heading', { level: 5 }) }"
-        >h5</button>
+            class="btn btn-outline-secondary m-1"
+        >
+            <font-awesome-icon icon="heading" />
+            <font-awesome-icon icon="5" />
+        </button>
         <button
             @click="editor.chain().focus().toggleHeading({ level: 6 }).run()"
             :class="{ 'is-active': editor.isActive('heading', { level: 6 }) }"
-        >h6</button>
+            class="btn btn-outline-secondary m-1"
+        >
+            <font-awesome-icon icon="heading" />
+            <font-awesome-icon icon="6" />
+        </button>
         <button
             @click="editor.chain().focus().toggleBulletList().run()"
             :class="{ 'is-active': editor.isActive('bulletList') }"
-        >bullet list</button>
+            class="btn btn-outline-secondary m-1"
+        >
+        <font-awesome-icon icon="list" />
+        </button>
         <button
             @click="editor.chain().focus().toggleOrderedList().run()"
             :class="{ 'is-active': editor.isActive('orderedList') }"
-        >ordered list</button>
-        <button @click="editor.chain().focus().setHorizontalRule().run()">horizontal rule</button>
-        <button @click="editor.chain().focus().setHardBreak().run()">hard break</button>
-        <button @click="editor.chain().focus().undo().run()">undo</button>
-        <button @click="editor.chain().focus().redo().run()">redo</button>
+            class="btn btn-outline-secondary m-1"
+        >
+        <font-awesome-icon icon="list-numeric" />
+        </button>
+        <button @click="editor.chain().focus().setHorizontalRule().run()" class="btn btn-outline-secondary m-1">
+            <font-awesome-icon icon="ruler-horizontal" />
+        </button>
+        <!-- <button @click="editor.chain().focus().setHardBreak().run()">hard break</button> -->
+        <button @click="editor.chain().focus().undo().run()" class="btn btn-outline-secondary m-1">
+            <font-awesome-icon icon="rotate-left" />
+        </button>
+        <button @click="editor.chain().focus().redo().run()" class="btn btn-outline-secondary m-1">
+             <font-awesome-icon icon="rotate-right" />
+        </button>
     </div>
-    <editor-content :editor="editor" />
+    <editor-content :editor="editor"/>
 </template>
 
 <script>
@@ -109,3 +142,7 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+/* Basic editor styles */
+
+</style>

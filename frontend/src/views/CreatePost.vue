@@ -3,10 +3,10 @@
         <h1>Create Post</h1>
         <div class="mt-3 mb-3">
             <label class="form-lable mb-1">Title</label>
-            <input class="form-control" type="text" placeholder="Title How To" for="title" v-model="post.title" />
+            <input class="form-control" type="text" placeholder="Title How To" for="title" v-model="post.title" required/>
         </div>
         <div>
-            <editor v-model="post.content" />
+            <editor v-model="post.content"/>
             <div class="content">
                 <hr />
                 <h1>Preview</h1>
@@ -40,11 +40,7 @@ export default {
     },
     methods: {
         async createPost() {
-            let today = new Date();
-            let ISO_DATE = today.toISOString()
-            let ISO_split = ISO_DATE.split('T')
-            let local_time = today.toLocaleTimeString()
-            let date_time = ISO_split[0] + 'T' + local_time
+            let date = new Date();
 
             const idToken = localStorage.getItem('token')
 
@@ -53,7 +49,7 @@ export default {
                 content: this.post.content,
                 author: '1', // userId
                 categories: [],
-                createAt: date_time,
+                createAt: date.toLocaleString(),
                 editAt: ''
             }
             console.log('data : ', data)
@@ -67,12 +63,12 @@ export default {
                     'Authorization': idToken
                 }
             })
-                .then(response => {
-                    console.log(response.data)
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
         }
     }
 }
