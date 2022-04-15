@@ -26,7 +26,7 @@ const routes = [
         component: () => import('../views/Posts.vue')
     },
     {
-        path: '/post/:id',
+        path: '/post/:postId',
         name: 'PostDetail',
         // meta: { guess: true },
         component: () => import('../views/PostDetail.vue')
