@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="item in postDetail" :key="item.postId">
+        <div class="mt-3" v-for="item in postDetail" :key="item.postId">
             <h1>{{ item.title }}</h1>
             <h6>สร้างโพสเมื่อ : {{ item.createAt }}</h6>
             <hr>
@@ -22,7 +22,7 @@ export default {
         }
     },
     async created() {
-        await axios.get('http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/posts', {
+        await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts', {
             params: {
                 postId: this.postId
             }
