@@ -27,8 +27,8 @@ export default {
             id: ''
         }
     },
-    created() {
-        axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts-all')
+    async created() {
+        await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts-all')
             .then(response => {
                 this.posts = response.data
             })
@@ -36,24 +36,25 @@ export default {
                 console.log(error)
             })
 
-        axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/user', {
-            params: {
-                // email: this.$store.state.email_user
-                email: localStorage.getItem('email_user')
-            }
-        }).then(response => {
-            let list = []
-            list.push(response.data)
-            this.userData = list
-            console.log(list);
-            // this.$store.commit('setUserID', list[0].userId)
-            localStorage.setItem('userId', list[0].userId)
-        }).catch(error => {
-            console.log(error);
-        })
+        if (localStorage.getItem('email_user') != null) {
+            await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/user', {
+                params: {
+                    // email: this.$store.state.email_user
+                    email: localStorage.getItem('email_user')
+                }
+            }).then(response => {
+                let list = []
+                list.push(response.data)
+                this.userData = list
+                console.log(list);
+                // this.$store.commit('setUserID', list[0].userId)
+                localStorage.setItem('userId', list[0].userId)
+            }).catch(error => {
+                console.log(error);
+            })
+        }
     },
-    methods: {
-    }
+
 }
 </script>
 
