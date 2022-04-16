@@ -80,7 +80,8 @@ export default {
                 user.authenticateUser(authDeteils, {
                     onSuccess: data => {
                         localStorage.setItem('token', data.getIdToken().getJwtToken())
-                        // console.log(data.getIdToken().getJwtToken())
+                        // this.$store.commit('setEmail', this.signin.email)
+                        localStorage.setItem('email_user', this.signin.email)
                         console.log('onSuccess: ', data)
                         // this.signInSuccess = true
                         this.$emit('authen-user')

@@ -3,10 +3,17 @@
         <h1>Create Post</h1>
         <div class="mt-3 mb-3">
             <label class="form-lable mb-1">Title</label>
-            <input class="form-control" type="text" placeholder="Title How To" for="title" v-model="post.title" required/>
+            <input
+                class="form-control"
+                type="text"
+                placeholder="Title How To"
+                for="title"
+                v-model="post.title"
+                required
+            />
         </div>
         <div>
-            <editor v-model="post.content"/>
+            <editor v-model="post.content" />
             <div class="content">
                 <hr />
                 <h1>Preview</h1>
@@ -20,7 +27,7 @@
 
 <script>
 import axios from 'axios'
-// import swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 import Editor from '../components/Editor.vue'
 export default {
     components: {
@@ -28,7 +35,7 @@ export default {
     },
     data() {
         return {
-            post : {
+            post: {
                 title: '',
                 author: '',
                 categories: '',
@@ -40,14 +47,16 @@ export default {
     },
     methods: {
         async createPost() {
-            let date = new Date();
+            let date = new Date()
 
             const idToken = localStorage.getItem('token')
+            const userId = localStorage.getItem('userId')
 
             const data = {
                 title: this.post.title,
                 content: this.post.content,
-                author: '1', // userId
+                // author: this.$store.state.id_user, // userId
+                author: userId, // userId
                 categories: [],
                 createAt: date.toLocaleString(),
                 editAt: ''
@@ -56,19 +65,27 @@ export default {
 
             await axios({
                 method: 'post',
-                // url: 'http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/posts/create-post',
                 url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts-create-post',
                 data: data,
                 headers: {
-                    'Authorization': idToken
+                    Authorization: idToken
                 }
             })
-            .then(response => {
-                console.log(response.data)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+                .then(response => {
+                    console.log(response.data)
+                    Swal.fire({
+                        title: 'สร้างโพสสำเร็จ',
+                        icon: 'success',
+                        // confirmButtonText: 'OK'
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    this.post.title = ''
+                    this.post.content = ''
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         }
     }
 }
