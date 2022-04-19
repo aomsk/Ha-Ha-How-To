@@ -122,7 +122,6 @@ export default {
                     console.log(error.response.data)
                 })
         },
-
         submitSignup() {
             if (this.singup.first_name == '' || this.singup.last_name == '' || this.singup.email == '' || this.singup.username == '' || this.singup.password == '') {
                 Swal.fire({
