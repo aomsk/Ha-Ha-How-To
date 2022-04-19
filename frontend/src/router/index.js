@@ -48,6 +48,12 @@ const routes = [
         name: 'Account',
         meta: { login: true },
         component: () => import('../views/Account.vue'),
+    },
+    {
+        path: '/signup/confirm-code',
+        name: 'ConfirmCode',
+        meta: { guess: true },
+        component: () => import('../components/ConfirmCode.vue'),
     }
 ]
 
