@@ -38,6 +38,12 @@ const routes = [
         component: () => import('../views/CreatePost.vue')
     },
     {
+        path: '/edit-post/:postId',
+        name: 'EditPost',
+        meta: { login: true },
+        component: () => import('../views/EditPost.vue')
+    },
+    {
         path: '/my-account',
         name: 'Account',
         meta: { login: true },
