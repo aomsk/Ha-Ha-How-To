@@ -6,36 +6,100 @@
         <div v-for="item in userData" :key="item.userId">
             <h4>username : {{ item.username }}</h4>
         </div>
+        <h2>Post Count({{ posts.length }})</h2>
+        <div class="row">
+            <div class="col-lg-12" v-for="(post, index) in posts" :key="index">
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ post.title }}</h4>
+                        <h6 class="card-text">{{ post.createAt }}</h6>
+                        <div class="text-end">
+                            <router-link v-bind:to="'/edit-post/' + post.postId">
+                                <button class="btn btn-warning m-2">แก้ไขโพส</button>
+                            </router-link>
+                            <button class="btn btn-danger" @click="deletePost(post.postId)">ลบโพส</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
     data() {
         return {
             userData: null,
-            user_email_localStorage: ''
+            user_email_localStorage: '',
+            posts: ''
         }
     },
-    created() {
+    async created() {
         this.user_email_localStorage = localStorage.getItem('email_user')
-        axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/user', {
-            params: {
-                // email: this.$store.state.email_user
-                email: localStorage.getItem('email_user')
-            }
-        }).then(response => {
-            let list = []
-            list.push(response.data)
-            this.userData = list
-            console.log(list);
-        }).catch(error => {
-            console.log(error);
-        })
+        await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/user', {
+                params: {
+                    // email: this.$store.state.email_user
+                    email: localStorage.getItem('email_user')
+                }
+            })
+            .then(response => {
+                let list = []
+                list.push(response.data)
+                this.userData = list
+                console.log(list)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+        await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts-all')
+            .then(response => {
+                this.posts = response.data
+                const posts = response.data
+                const idUser = localStorage.getItem('userId')
+                const user_post = posts.filter(post => {
+                    return post.author == idUser
+                })
+                this.posts = user_post
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    },
+    methods: {
+        async deletePost(post_id) {
+            Swal.fire({
+                title: 'คุณต้องการลบโพสใช่มั้ย ?',
+                text: "หากลบโพสแล้ว จะไม่สามารถกู้คืนโพสได้อีก",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่ ลบเลย !',
+                cancelButtonText: 'ยกเลิก'
+            }).then(result => {
+                if (result.isConfirmed) {
+                    console.log('post_id: ', post_id)
+                    // await axios.delete('', {
+                    //     params: {
+                    //         'postId': post_id
+                    //     }
+                    // }).then(response => {
+                    //     console.log(response.data);
+                    // }).catch(error => {
+                    //     console.log(error);
+                    // })
+                    Swal.fire('ลบโพสสำเร็จ !', 'โพส How To ของคุณถูกลบเรียบร้อยแล้ว !', 'success')
+                }
+            })
+        }
     }
 }
 </script>
 
-<style></style>
+<style>
+</style>
