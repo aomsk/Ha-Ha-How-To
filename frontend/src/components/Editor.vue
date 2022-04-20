@@ -14,10 +14,6 @@
         >
             <font-awesome-icon icon="italic" />
         </button>
-        <!-- <button
-            @click="editor.chain().focus().setParagraph().run()"
-            :class="{ 'is-active': editor.isActive('paragraph') }"
-        >paragraph</button>-->
         <button
             @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
             :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
@@ -72,14 +68,17 @@
             :class="{ 'is-active': editor.isActive('bulletList') }"
             class="btn btn-outline-secondary m-1"
         >
-        <font-awesome-icon icon="list" />
+            <font-awesome-icon icon="list" />
         </button>
         <button
             @click="editor.chain().focus().toggleOrderedList().run()"
             :class="{ 'is-active': editor.isActive('orderedList') }"
             class="btn btn-outline-secondary m-1"
         >
-        <font-awesome-icon icon="list-numeric" />
+            <font-awesome-icon icon="list-numeric" />
+        </button>
+        <button @click="addImage()" class="btn btn-outline-secondary m-1">
+            <font-awesome-icon icon="image" />
         </button>
         <button @click="editor.chain().focus().setHorizontalRule().run()" class="btn btn-outline-secondary m-1">
             <font-awesome-icon icon="ruler-horizontal" />
@@ -89,23 +88,25 @@
             <font-awesome-icon icon="rotate-left" />
         </button>
         <button @click="editor.chain().focus().redo().run()" class="btn btn-outline-secondary m-1">
-             <font-awesome-icon icon="rotate-right" />
+            <font-awesome-icon icon="rotate-right" />
         </button>
     </div>
-    <editor-content :editor="editor" class="mt-2 editor"/>
+    <editor-content :editor="editor" class="mt-2 editor" />
 </template>
 
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
+
 export default {
     components: {
-        EditorContent
+        EditorContent,
     },
     props: {
         modelValue: {
             type: String,
-            default: ''
+            default: '',
+
         }
     },
     data() {
@@ -139,6 +140,9 @@ export default {
     },
     beforeUnmount() {
         this.editor.destroy()
+    },
+    methods: {
+        addImage() {}
     }
 }
 </script>
@@ -148,5 +152,4 @@ export default {
 // .editor {
 //     border: 1px solid red
 // }
-
 </style>
