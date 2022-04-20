@@ -120,13 +120,29 @@ export default {
             console.log('this.isAuthen: ', this.isAuthen)
         },
         signOut() {
-            const user = UserPool.getCurrentUser()
-            if (user) {
-                user.signOut()
-                console.log('user: ', user)
-                localStorage.clear()
-                window.location.reload()
-            }
+            Swal.fire({
+                title: 'คุณต้องการออกจากระบบใช่มั้ย ?',
+                // text: 'หากลบโพสแล้ว จะไม่สามารถกู้คืนโพสได้อีก',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ออกจากระบบ',
+                cancelButtonText: 'ยกเลิก'
+            }).then(result => {
+                if (result.isConfirmed) {
+                    const user = UserPool.getCurrentUser()
+                    if (user) {
+                        user.signOut()
+                        console.log('user: ', user)
+                        localStorage.clear()
+                        // window.location.reload()
+                        setInterval(() => {
+                            window.location.reload()
+                        }, 1000)
+                    }
+                }
+            })
         }
     },
     created() {

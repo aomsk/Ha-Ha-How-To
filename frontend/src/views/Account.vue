@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Account</h1>
+        <h1>My Account</h1>
         <!-- <h2>User Email : {{ $store.state.email_user }}</h2> -->
         <h2>User Email form localStorage : {{ user_email_localStorage }}</h2>
         <div v-for="item in userData" :key="item.userId">
@@ -35,12 +35,13 @@ export default {
         return {
             userData: null,
             user_email_localStorage: '',
-            posts: ''
+            posts: '',
         }
     },
     async created() {
         this.user_email_localStorage = localStorage.getItem('email_user')
-        await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/user', {
+        await axios
+            .get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/user', {
                 params: {
                     // email: this.$store.state.email_user
                     email: localStorage.getItem('email_user')
@@ -56,7 +57,8 @@ export default {
                 console.log(error)
             })
 
-        await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts-all')
+        await axios
+            .get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts-all')
             .then(response => {
                 this.posts = response.data
                 const posts = response.data
@@ -74,7 +76,7 @@ export default {
         async deletePost(post_id) {
             Swal.fire({
                 title: 'คุณต้องการลบโพสใช่มั้ย ?',
-                text: "หากลบโพสแล้ว จะไม่สามารถกู้คืนโพสได้อีก",
+                text: 'หากลบโพสแล้ว จะไม่สามารถกู้คืนโพสได้อีก',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -84,16 +86,30 @@ export default {
             }).then(result => {
                 if (result.isConfirmed) {
                     console.log('post_id: ', post_id)
-                    // await axios.delete('', {
-                    //     params: {
-                    //         'postId': post_id
-                    //     }
-                    // }).then(response => {
-                    //     console.log(response.data);
-                    // }).catch(error => {
-                    //     console.log(error);
-                    // })
-                    Swal.fire('ลบโพสสำเร็จ !', 'โพส How To ของคุณถูกลบเรียบร้อยแล้ว !', 'success')
+                    const idToken = localStorage.getItem('token')
+
+                    const data = {
+                        postId: post_id,
+                    }
+
+                    axios({
+                        method: 'delete',
+                        url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts',
+                        data: data,
+                        headers: {
+                            Authorization: idToken
+                        }
+                    })
+                    .then(response => {
+                        console.log(response.data)
+                        Swal.fire('ลบโพสสำเร็จ !', 'โพส How To ของคุณถูกลบเรียบร้อยแล้ว !', 'success')
+                        setInterval(() => {
+                            window.location.reload()
+                        }, 1500)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
                 }
             })
         }
