@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Account</h1>
+        <h1>My Account</h1>
         <!-- <h2>User Email : {{ $store.state.email_user }}</h2> -->
         <h2>User Email form localStorage : {{ user_email_localStorage }}</h2>
         <div v-for="item in userData" :key="item.userId">
