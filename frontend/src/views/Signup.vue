@@ -91,7 +91,7 @@ export default {
                 confirm_passeord: ''
             },
             data_user: null,
-            singup_success: false
+            // singup_success: false,
         }
     },
     methods: {
@@ -109,14 +109,14 @@ export default {
             })
                 .then(response => {
                     console.log(response.data)
-                    Swal.fire({
-                        title: 'ลงทะเบียนสำเร็จ',
-                        icon: 'success',
-                        // confirmButtonText: 'OK'
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    this.$router.push('/signin')
+                    // Swal.fire({
+                    //     title: 'ลงทะเบียนสำเร็จ',
+                    //     icon: 'success',
+                    //     // confirmButtonText: 'OK'
+                    //     showConfirmButton: false,
+                    //     timer: 1500
+                    // })
+                    // this.$router.push('/signin')
                 })
                 .catch(error => {
                     console.log(error.response.data)
@@ -124,6 +124,7 @@ export default {
         },
 
         submitSignup() {
+            // this.$router.push('/confirm-code')
             if (this.singup.first_name == '' || this.singup.last_name == '' || this.singup.email == '' || this.singup.username == '' || this.singup.password == '') {
                 Swal.fire({
                     icon: 'error',
@@ -132,6 +133,8 @@ export default {
                 })
             }
             if (this.singup.first_name != '' || this.singup.last_name != '' || this.singup.email != '' || this.singup.username != '' || this.singup.password != '') {
+                localStorage.setItem('email_user_signup', this.singup.email)
+
                 let attributeList = [
                     new CognitoUserAttribute({
                         Name: 'email',
@@ -144,10 +147,11 @@ export default {
                     } else {
                         console.log('data : ', data)
                         this.postUserToDB()
+                        this.$router.push('/signup/confirm-code')
                     }
                 })
             }
-        }
+        },
     }
 }
 </script>
