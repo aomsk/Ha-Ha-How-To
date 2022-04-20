@@ -92,7 +92,7 @@
              <font-awesome-icon icon="rotate-right" />
         </button>
     </div>
-    <editor-content :editor="editor"/>
+    <editor-content :editor="editor" class="mt-2 editor"/>
 </template>
 
 <script>
@@ -144,5 +144,9 @@ export default {
 </script>
 <style lang="scss">
 /* Basic editor styles */
+
+// .editor {
+//     border: 1px solid red
+// }
 
 </style>

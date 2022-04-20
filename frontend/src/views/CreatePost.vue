@@ -41,7 +41,7 @@ export default {
                 categories: '',
                 createAt: '',
                 editAt: '',
-                content: '<p>Hello World</p>'
+                content: ''
             }
         }
     },
