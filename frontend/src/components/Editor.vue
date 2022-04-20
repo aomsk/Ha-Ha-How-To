@@ -77,7 +77,12 @@
         >
             <font-awesome-icon icon="list-numeric" />
         </button>
-        <button @click="addImage()" class="btn btn-outline-secondary m-1">
+        <button
+            class="btn btn-outline-secondary m-1"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+        >
             <font-awesome-icon icon="image" />
         </button>
         <button @click="editor.chain().focus().setHorizontalRule().run()" class="btn btn-outline-secondary m-1">
@@ -90,6 +95,35 @@
         <button @click="editor.chain().focus().redo().run()" class="btn btn-outline-secondary m-1">
             <font-awesome-icon icon="rotate-right" />
         </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Upload Image</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input
+                                type="file"
+                                class="form-control"
+                                aria-label="file example"
+                                accept="image/jpeg, image/png, image/jpg"
+                                @change="onFileSelected"
+                                required
+                            />
+                            <div class="invalid-feedback">Example invalid form file feedback</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" @click="onUpload()">Upload Image</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <editor-content :editor="editor" class="mt-2 editor" />
 </template>
@@ -97,21 +131,22 @@
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
+import axios from 'axios'
 
 export default {
     components: {
-        EditorContent,
+        EditorContent
     },
     props: {
         modelValue: {
             type: String,
-            default: '',
-
+            default: ''
         }
     },
     data() {
         return {
-            editor: null
+            editor: null,
+            selectedFile: null
         }
     },
     watch: {
@@ -142,7 +177,13 @@ export default {
         this.editor.destroy()
     },
     methods: {
-        addImage() {}
+        onFileSelected(event) {
+            this.selectedFile = event.target.files[0]
+            console.log(this.selectedFile);
+        },
+        onUpload() {
+
+        }
     }
 }
 </script>
