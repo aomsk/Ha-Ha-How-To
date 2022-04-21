@@ -133,6 +133,7 @@
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 import Image from '@tiptap/extension-image'
 
 export default {
@@ -184,30 +185,40 @@ export default {
             this.selectedFile = event.target.files[0]
             console.log(this.selectedFile)
         },
+
         async onUpload() {
-            // const url = window.prompt('URL')
+            if (this.selectedFile == null) {
+                Swal.fire({
+                    title: 'กรุณาเลือกรูปภาพ',
+                    icon: 'warning',
+                    // confirmButtonText: 'OK'
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            } else {
+                const { url } = await fetch(
+                    'http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/s3Url'
+                )
+                    .then(res => res.json())
+                    .catch(err => console.log(err))
+                console.log(url)
 
-            // if (url) {
-            //     this.editor.chain().focus().setImage({ src: url }).run()
-            // }
-            const { url } = await fetch('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/s3Url').then(res => res.json())
-            console.log(url)
+                await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    body: this.selectedFile
+                })
 
-            await fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-                body: this.selectedFile
-            })
+                const imageUrl = url.split('?')[0]
+                console.log(imageUrl)
 
-            const imageUrl = url.split('?')[0]
-            console.log(imageUrl)
+                this.image = imageUrl
 
-            this.image = imageUrl
-
-            if (imageUrl) {
-                this.editor.chain().focus().setImage({ src: imageUrl }).run()
+                if (imageUrl) {
+                    this.editor.chain().focus().setImage({ src: imageUrl }).run()
+                }
             }
         }
     }
