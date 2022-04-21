@@ -14,10 +14,6 @@
         >
             <font-awesome-icon icon="italic" />
         </button>
-        <!-- <button
-            @click="editor.chain().focus().setParagraph().run()"
-            :class="{ 'is-active': editor.isActive('paragraph') }"
-        >paragraph</button>-->
         <button
             @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
             :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
@@ -72,14 +68,22 @@
             :class="{ 'is-active': editor.isActive('bulletList') }"
             class="btn btn-outline-secondary m-1"
         >
-        <font-awesome-icon icon="list" />
+            <font-awesome-icon icon="list" />
         </button>
         <button
             @click="editor.chain().focus().toggleOrderedList().run()"
             :class="{ 'is-active': editor.isActive('orderedList') }"
             class="btn btn-outline-secondary m-1"
         >
-        <font-awesome-icon icon="list-numeric" />
+            <font-awesome-icon icon="list-numeric" />
+        </button>
+        <button
+            class="btn btn-outline-secondary m-1"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+        >
+            <font-awesome-icon icon="image" />
         </button>
         <button @click="editor.chain().focus().setHorizontalRule().run()" class="btn btn-outline-secondary m-1">
             <font-awesome-icon icon="ruler-horizontal" />
@@ -89,15 +93,48 @@
             <font-awesome-icon icon="rotate-left" />
         </button>
         <button @click="editor.chain().focus().redo().run()" class="btn btn-outline-secondary m-1">
-             <font-awesome-icon icon="rotate-right" />
+            <font-awesome-icon icon="rotate-right" />
         </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Upload Image</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input
+                                type="file"
+                                class="form-control"
+                                aria-label="file example"
+                                accept="image/jpeg, image/png, image/jpg"
+                                @change="onFileSelected"
+                                required
+                            />
+                            <div class="invalid-feedback">Example invalid form file feedback</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" @click="onUpload()">Upload Image</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <img v-bind:src="image" /> -->
     </div>
-    <editor-content :editor="editor" class="mt-2 editor"/>
+    <editor-content :editor="editor" class="mt-2 editor" />
 </template>
 
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
+import axios from 'axios'
+import Image from '@tiptap/extension-image'
+
 export default {
     components: {
         EditorContent
@@ -110,7 +147,9 @@ export default {
     },
     data() {
         return {
-            editor: null
+            editor: null,
+            selectedFile: null,
+            image: ''
         }
     },
     watch: {
@@ -127,7 +166,7 @@ export default {
     },
     mounted() {
         this.editor = new Editor({
-            extensions: [StarterKit],
+            extensions: [StarterKit, Image],
             content: this.modelValue,
             onUpdate: () => {
                 // HTML
@@ -139,6 +178,38 @@ export default {
     },
     beforeUnmount() {
         this.editor.destroy()
+    },
+    methods: {
+        onFileSelected(event) {
+            this.selectedFile = event.target.files[0]
+            console.log(this.selectedFile)
+        },
+        async onUpload() {
+            // const url = window.prompt('URL')
+
+            // if (url) {
+            //     this.editor.chain().focus().setImage({ src: url }).run()
+            // }
+            const { url } = await fetch('http://localhost:3000/s3Url').then(res => res.json())
+            console.log(url)
+
+            await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                body: this.selectedFile
+            })
+
+            const imageUrl = url.split('?')[0]
+            console.log(imageUrl)
+
+            this.image = imageUrl
+
+            if (imageUrl) {
+                this.editor.chain().focus().setImage({ src: imageUrl }).run()
+            }
+        }
     }
 }
 </script>
@@ -148,5 +219,4 @@ export default {
 // .editor {
 //     border: 1px solid red
 // }
-
 </style>
