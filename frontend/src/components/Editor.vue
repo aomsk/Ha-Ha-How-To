@@ -124,6 +124,7 @@
                 </div>
             </div>
         </div>
+        <!-- <img v-bind:src="image" /> -->
     </div>
     <editor-content :editor="editor" class="mt-2 editor" />
 </template>
@@ -132,6 +133,7 @@
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import axios from 'axios'
+import Image from '@tiptap/extension-image'
 
 export default {
     components: {
@@ -146,7 +148,8 @@ export default {
     data() {
         return {
             editor: null,
-            selectedFile: null
+            selectedFile: null,
+            image: ''
         }
     },
     watch: {
@@ -163,7 +166,7 @@ export default {
     },
     mounted() {
         this.editor = new Editor({
-            extensions: [StarterKit],
+            extensions: [StarterKit, Image],
             content: this.modelValue,
             onUpdate: () => {
                 // HTML
@@ -179,10 +182,33 @@ export default {
     methods: {
         onFileSelected(event) {
             this.selectedFile = event.target.files[0]
-            console.log(this.selectedFile);
+            console.log(this.selectedFile)
         },
-        onUpload() {
+        async onUpload() {
+            // const url = window.prompt('URL')
 
+            // if (url) {
+            //     this.editor.chain().focus().setImage({ src: url }).run()
+            // }
+            const { url } = await fetch('http://localhost:3000/s3Url').then(res => res.json())
+            console.log(url)
+
+            await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                body: this.selectedFile
+            })
+
+            const imageUrl = url.split('?')[0]
+            console.log(imageUrl)
+
+            this.image = imageUrl
+
+            if (imageUrl) {
+                this.editor.chain().focus().setImage({ src: imageUrl }).run()
+            }
         }
     }
 }
