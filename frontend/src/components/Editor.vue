@@ -190,7 +190,7 @@ export default {
             // if (url) {
             //     this.editor.chain().focus().setImage({ src: url }).run()
             // }
-            const { url } = await fetch('http://localhost:3000/s3Url').then(res => res.json())
+            const { url } = await fetch('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/s3Url').then(res => res.json())
             console.log(url)
 
             await fetch(url, {
