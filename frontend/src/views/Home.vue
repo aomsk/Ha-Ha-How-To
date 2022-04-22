@@ -1,15 +1,17 @@
 <template>
-    <div class="container">
-        <div class="row">
+    <div>
+        <div class="row mt-5">
             <div class="col-lg-6" v-for="(post, index) in posts" :key="index">
-                <div class="card mt-5 p-3" id="card">
+                <div class="card mt-3 p-3" id="card">
                     <div class="card-body">
                         <h4 class="card-title"><strong>{{ post.title }}</strong></h4>
                         <h6 class="card-text">{{ post.createAt }}</h6>
                         <!-- <h6>{{ post.postId }}</h6> -->
-                        <router-link v-bind:to="'/post/' + post.postId">
-                            <button id="button" class="btn btn-outline-dark">อ่านต่อ</button>
-                        </router-link>
+                        <div class="d-flex justify-content-end">
+                            <router-link v-bind:to="'/post/' + post.postId">
+                                <button id="button" class="btn btn-outline-dark">อ่านต่อ</button>
+                            </router-link>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,7 +66,7 @@ export default {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 #button {
-    border-radius: 25px;
+    border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 </style>

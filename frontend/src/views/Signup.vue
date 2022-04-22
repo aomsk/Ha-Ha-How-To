@@ -66,7 +66,7 @@
                     />
                 </div>-->
                 <div class="d-grid">
-                    <button class="btn btn-primary my-4" type="submit">ลงะทเบียน</button>
+                    <button id="button" class="btn btn-outline-primary my-4" type="submit">ลงะทเบียน</button>
                 </div>
             </form>
         </div>
@@ -157,4 +157,8 @@ export default {
 </script>
 
 <style>
+#button {
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 </style>

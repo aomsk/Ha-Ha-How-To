@@ -10,9 +10,9 @@
         <h2>Post Count({{ posts.length }})</h2>
         <div class="row">
             <div class="col-lg-12" v-for="(post, index) in posts" :key="index">
-                <div class="card p-3" id="card">
+                <div class="card p-2 mb-3" id="card">
                     <div class="card-body">
-                        <h2 class="card-title"><strong>{{ post.title }}</strong></h2>
+                        <h3 class="card-title"><strong>{{ post.title }}</strong></h3>
                         <h6 class="card-text">{{ post.createAt }}</h6>
                         <div class="text-end">
                             <router-link v-bind:to="'/edit-post/' + post.postId">
@@ -167,7 +167,7 @@ export default {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 #button {
-    border-radius: 25px;
+    border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 </style>

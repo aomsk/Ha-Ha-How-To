@@ -17,8 +17,8 @@
                     <div class="input-group mb-2">
                         <textarea class="form-control" type="text" rows="4" ></textarea>
                     </div>
-                    <div class="d-grid gap-2 mb-3">
-                        <button type="button" class="btn btn-outline-success" >ส่งความคิดเห็น</button>
+                    <div class="gap-2 mb-3 d-flex justify-content-end">
+                        <button id="button" type="button" class="btn btn-outline-success" >ส่งความคิดเห็น</button>
                     </div>
                 </div>
             </div>
@@ -62,6 +62,10 @@ export default {
 
 #card {
     border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+#button {
+    border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 </style>

@@ -19,9 +19,11 @@
                 <hr />
                 <h3>Preview</h3>
                 <pre><code>{{ post.content }}</code></pre>
-                <!-- <p v-html="content"></p> -->
+                <p v-html="post.content"></p>
             </div>
-            <button class="btn btn-outline-primary" @click="createPost()">Create Post</button>
+            <div class="d-flex justify-content-end">
+                <button id="button" class="btn btn-outline-primary" @click="createPost()">Create Post</button>
+            </div>
         </div>
     </div>
 </template>
@@ -122,5 +124,9 @@ export default {
         background-color: #e9ecef;
         color: #495057;
     }
+}
+#button {
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 </style>

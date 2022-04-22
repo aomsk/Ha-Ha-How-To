@@ -8,11 +8,11 @@
                     <input class="form-control" type="text" for="password" v-model="code" />
                 </div>
                 <div class="d-grid">
-                    <button class="btn btn-success my-4">Confirm Account</button>
+                    <button id="button" class="btn btn-outline-success my-4">Confirm Account</button>
                 </div>
             </form>
             <div class="d-grid">
-                <button class="btn btn-outline-secondary" @click="resendCode()">Resend Code</button>
+                <button id="button" class="btn btn-outline-secondary" @click="resendCode()">Resend Code</button>
             </div>
         </div>
     </div>
@@ -93,4 +93,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+#button {
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+</style>
