@@ -1,9 +1,7 @@
 # Ha-Ha-How-To
 This project is a part of 06016327 CLOUD-BASED ENTERPRISE APPLICATION DEVELOPMENT 2/2564
 
-<!-- ### ถ้าแค่แก้หน้าเว็บไม่จำเป็นต้องรัน Backend -->
-<!-- <span style="color:blue">ถ้าแค่แก้หน้าเว็บไม่จำเป็นต้องรัน Backend</span>
-<mark style="background-color: #FFFF00">Highlighted text</mark> -->
+### ***ถ้าแค่แก้หน้าเว็บไม่จำเป็นต้องรัน Backend***
 
 ## steps to run Frontend
 ```
