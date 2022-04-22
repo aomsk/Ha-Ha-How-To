@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Create Post</h1>
-        <h2>list image : {{ $store.state.list_image }}</h2>
+        <!-- <h2>list image : {{ $store.state.list_image }}</h2> -->
         <div class="mt-3 mb-3">
             <label class="form-lable mb-1">Title</label>
             <input
@@ -17,11 +17,11 @@
             <editor v-model="post.content" />
             <div class="content">
                 <hr />
-                <h1>Preview</h1>
+                <h3>Preview</h3>
                 <pre><code>{{ post.content }}</code></pre>
                 <!-- <p v-html="content"></p> -->
             </div>
-            <button class="btn btn-primary" @click="createPost()">Create Post</button>
+            <button class="btn btn-outline-primary" @click="createPost()">Create Post</button>
         </div>
     </div>
 </template>

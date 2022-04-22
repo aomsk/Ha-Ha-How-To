@@ -2,13 +2,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6" v-for="(post, index) in posts" :key="index">
-                <div class="card mt-5">
+                <div class="card mt-5 p-3" id="card">
                     <div class="card-body">
-                        <h4 class="card-title">{{ post.title }}</h4>
+                        <h4 class="card-title"><strong>{{ post.title }}</strong></h4>
                         <h6 class="card-text">{{ post.createAt }}</h6>
                         <!-- <h6>{{ post.postId }}</h6> -->
                         <router-link v-bind:to="'/post/' + post.postId">
-                            <button class="btn btn-dark">อ่านต่อ</button>
+                            <button id="button" class="btn btn-outline-dark">อ่านต่อ</button>
                         </router-link>
                     </div>
                 </div>
@@ -59,4 +59,12 @@ export default {
 </script>
 
 <style>
+#card {
+    border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+#button {
+    border-radius: 25px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 </style>

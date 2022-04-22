@@ -4,12 +4,14 @@ export default createStore({
     state: {
         email_user: '',
         id_user: '',
-        list_image: null
+        list_image: null,
+        authen: ''
     },
     getters: {
         email:state=>state.email_user,
         userId:state=>state.id_user,
-        list_image:state=>state.list_image
+        list_image:state=>state.list_image,
+        authen:state=>state.authen
     },
     mutations: {
         setEmail(state, email) {
@@ -20,6 +22,9 @@ export default createStore({
         },
         setListImage(state, list_image) {
             state.list_image = list_image
+        },
+        setAuthen(state, authen) {
+            state.authen = authen
         }
     },
     actions: {

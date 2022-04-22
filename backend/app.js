@@ -55,6 +55,7 @@ app.delete("/delete/:filename", async (req, res) => {
     // res.send("Delete Image Successfully")
     const body = {
         Message: 'DELETE IMAGE SUCCESS',
+        image: filename
     }
     res.json(body);
 

@@ -2,22 +2,23 @@
     <div>
         <h1>My Account</h1>
         <!-- <h2>User Email : {{ $store.state.email_user }}</h2> -->
-        <h2>User Email form localStorage : {{ user_email_localStorage }}</h2>
+        <!-- <h2>User Email form localStorage : {{ user_email_localStorage }}</h2> -->
         <div v-for="item in userData" :key="item.userId">
             <h4>username : {{ item.username }}</h4>
+            <h4>email : {{ item.email }}</h4>
         </div>
         <h2>Post Count({{ posts.length }})</h2>
         <div class="row">
             <div class="col-lg-12" v-for="(post, index) in posts" :key="index">
-                <div class="card mt-2">
+                <div class="card p-3" id="card">
                     <div class="card-body">
-                        <h4 class="card-title">{{ post.title }}</h4>
+                        <h2 class="card-title"><strong>{{ post.title }}</strong></h2>
                         <h6 class="card-text">{{ post.createAt }}</h6>
                         <div class="text-end">
                             <router-link v-bind:to="'/edit-post/' + post.postId">
-                                <button class="btn btn-warning m-2">แก้ไขโพส</button>
+                                <button id="button" class="btn btn-outline-warning m-2">แก้ไขโพส</button>
                             </router-link>
-                            <button class="btn btn-danger" @click="deletePost(post.postId)">ลบโพส</button>
+                            <button id="button" class="btn btn-outline-danger" @click="deletePost(post.postId)">ลบโพส</button>
                         </div>
                     </div>
                 </div>
@@ -83,7 +84,7 @@ export default {
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'ใช่ ลบเลย !',
-                cancelButtonText: 'ยกเลิก'
+                cancelButtonText: 'ยกเลิก',
             }).then(result => {
                 if (result.isConfirmed) {
                     console.log('post_id: ', post_id)
@@ -161,4 +162,12 @@ export default {
 </script>
 
 <style>
+#card {
+    border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+#button {
+    border-radius: 25px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 </style>

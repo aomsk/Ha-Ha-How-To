@@ -151,6 +151,7 @@ export default {
             this.isAuthen = true
         }
         console.log('this.isAuthen: ', this.isAuthen)
+        this.$store.commit('setAuthen', this.isAuthen)
     }
 }
 </script>
