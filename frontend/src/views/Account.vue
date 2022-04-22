@@ -36,6 +36,7 @@ export default {
             userData: null,
             user_email_localStorage: '',
             posts: '',
+            images: ''
         }
     },
     async created() {
@@ -87,29 +88,71 @@ export default {
                 if (result.isConfirmed) {
                     console.log('post_id: ', post_id)
                     const idToken = localStorage.getItem('token')
-
                     const data = {
-                        postId: post_id,
+                        postId: post_id
                     }
 
-                    axios({
-                        method: 'delete',
-                        url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts',
-                        data: data,
-                        headers: {
-                            Authorization: idToken
-                        }
-                    })
-                    .then(response => {
-                        console.log(response.data)
-                        Swal.fire('ลบโพสสำเร็จ !', 'โพส How To ของคุณถูกลบเรียบร้อยแล้ว !', 'success')
-                        setInterval(() => {
-                            window.location.reload()
-                        }, 1500)
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
+                    axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts', {
+                            params: {
+                                postId: post_id
+                            }
+                        })
+                        .then(response => {
+                            this.images = response.data.images
+                            if (this.images == null) {
+                                axios({
+                                    method: 'delete',
+                                    url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts',
+                                    data: data,
+                                    headers: {
+                                        Authorization: idToken
+                                    }
+                                })
+                                    .then(response => {
+                                        console.log(response.data)
+                                        Swal.fire('ลบโพสสำเร็จ !', 'โพส How To ของคุณถูกลบเรียบร้อยแล้ว !', 'success')
+                                        setInterval(() => {
+                                            window.location.reload()
+                                        }, 1500)
+                                    })
+                                    .catch(error => {
+                                        console.log(error)
+                                    })
+                            }
+                            else if (this.images.length != 0) {
+                                this.images.forEach(image => {
+                                    axios
+                                        .delete('http://localhost:3000/delete/' + image)
+                                        .then(response => {
+                                            console.log(response.data)
+                                        })
+                                        .catch(error => {
+                                            console.log(error)
+                                        })
+                                })
+                                axios({
+                                    method: 'delete',
+                                    url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts',
+                                    data: data,
+                                    headers: {
+                                        Authorization: idToken
+                                    }
+                                })
+                                    .then(response => {
+                                        console.log(response.data)
+                                        Swal.fire('ลบโพสสำเร็จ !', 'โพส How To ของคุณถูกลบเรียบร้อยแล้ว !', 'success')
+                                        setInterval(() => {
+                                            window.location.reload()
+                                        }, 1500)
+                                    })
+                                    .catch(error => {
+                                        console.log(error)
+                                    })
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
                 }
             })
         }

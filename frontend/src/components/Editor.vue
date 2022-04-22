@@ -150,7 +150,9 @@ export default {
         return {
             editor: null,
             selectedFile: null,
-            image: ''
+            image: '',
+            imageName: '',
+            listImages: []
         }
     },
     watch: {
@@ -196,29 +198,27 @@ export default {
                     timer: 1500
                 })
             } else {
-                const { url } = await fetch(
-                    'http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/s3Url'
-                )
-                    .then(res => res.json())
-                    .catch(err => console.log(err))
-                console.log(url)
-
-                await fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    },
-                    body: this.selectedFile
-                })
-
-                const imageUrl = url.split('?')[0]
-                console.log(imageUrl)
-
-                this.image = imageUrl
-
-                if (imageUrl) {
-                    this.editor.chain().focus().setImage({ src: imageUrl }).run()
+                const config = { headers: { 'Content-Type': 'multipart/form-data' } }
+                let fd = new FormData()
+                fd.append('file', this.selectedFile)
+                await axios
+                    .post('http://localhost:3000/upload', fd, config)
+                    .then(response => {
+                        console.log(response.data)
+                        this.image = response.data.location
+                        this.imageName = response.data.originalname
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+                if (this.image) {
+                    this.listImages.push(this.imageName)
+                    this.editor.chain().focus().setImage({ src: this.image }).run()
                 }
+                this.$store.commit('setListImage', this.listImages)
+                console.log('this.listImages: ', this.listImages);
+                console.log('this.$store.state.list_image : ', this.$store.state.list_image);
+                this.selectedFile = null
             }
         }
     }
