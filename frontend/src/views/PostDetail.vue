@@ -8,7 +8,7 @@
                 <p v-html="item.content"></p>
             </div>
         </div>
-        <div v-if="$store.state.authen">
+        <div v-if="token_user_login">
             <hr>
             <h2><strong>คอมเมนต์</strong></h2>
             <div id="card" class='card p-3 mb-4 mt-4'>
@@ -34,11 +34,13 @@ export default {
     data() {
         return {
             postId: this.$route.params.postId,
-            postDetail: null
+            postDetail: null,
+            token_user_login: ''
         }
     },
     async created() {
-        console.log('this.$store.state.authen : ', this.$store.state.authen);
+        this.token_user_login = localStorage.getItem('token')
+        // console.log('this.$store.state.authen : ', this.$store.state.authen);
         await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts', {
             params: {
                 postId: this.postId

@@ -5,7 +5,7 @@
             <form @submit.prevent="confirmCode()">
                 <div class="mt-3">
                     <label class="form-lable mb-1">Code</label>
-                    <input class="form-control" type="text" for="password" v-model="code" />
+                    <input class="form-control input" type="text" for="password" v-model="code" />
                 </div>
                 <div class="d-grid">
                     <button id="button" class="btn btn-outline-success my-4">Confirm Account</button>
@@ -97,5 +97,8 @@ export default {
 #button {
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.input {
+    border-radius: 10px;
 }
 </style>

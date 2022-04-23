@@ -2,10 +2,10 @@
     <div>
         <h1>Create Post</h1>
         <!-- <h2>list image : {{ $store.state.list_image }}</h2> -->
-        <div class="mt-3 mb-3">
+        <div class="mt-3 mb-3" id="input">
             <label class="form-lable mb-1">Title</label>
             <input
-                class="form-control"
+                class="form-control input"
                 type="text"
                 placeholder="Title How To"
                 for="title"
@@ -128,5 +128,8 @@ export default {
 #button {
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.input {
+    border-radius: 10px;
 }
 </style>

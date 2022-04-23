@@ -7,7 +7,7 @@
                     <div class="col-lg-6">
                         <label class="form-lable mb-1">First Name</label>
                         <input
-                            class="form-control"
+                            class="form-control input"
                             type="first_name"
                             placeholder="John"
                             for="first_name"
@@ -17,7 +17,7 @@
                     <div class="col-lg-6">
                         <label class="form-lable mb-1">Last Name</label>
                         <input
-                            class="form-control"
+                            class="form-control input"
                             type="last_name"
                             placeholder="Doe"
                             for="last_name"
@@ -28,7 +28,7 @@
                 <div class="mt-3">
                     <label class="form-lable mb-1">Username</label>
                     <input
-                        class="form-control"
+                        class="form-control input"
                         type="text"
                         placeholder="username"
                         for="username"
@@ -38,7 +38,7 @@
                 <div class="mt-3">
                     <label class="form-lable mb-1">Email</label>
                     <input
-                        class="form-control"
+                        class="form-control input"
                         type="email"
                         placeholder="example@gmail.com"
                         for="email"
@@ -48,7 +48,7 @@
                 <div class="mt-3">
                     <label class="form-lable mb-1">Password</label>
                     <input
-                        class="form-control"
+                        class="form-control input"
                         type="text"
                         placeholder="8-20 ตัวอักษร"
                         for="password"
@@ -58,7 +58,7 @@
                 <!-- <div class="mt-3">
                     <label class="form-lable mb-1">Confirm Password</label>
                     <input
-                        class="form-control"
+                        class="form-control input"
                         type="password"
                         placeholder="Confirm Password"
                         for="confirm_passeord"
@@ -160,5 +160,8 @@ export default {
 #button {
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.input {
+    border-radius: 10px;
 }
 </style>

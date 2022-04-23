@@ -6,9 +6,6 @@ node_modules
 /tests/e2e/screenshots/
 package-lock.json
 
-# config file cognito
-/config/UserPool.js
-
 # local env files
 .env.local
 .env.*.local
