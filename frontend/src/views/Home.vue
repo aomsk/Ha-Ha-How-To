@@ -51,6 +51,7 @@ export default {
                 console.log(list);
                 // this.$store.commit('setUserID', list[0].userId)
                 localStorage.setItem('userId', list[0].userId)
+                localStorage.setItem('username', list[0].username)
             }).catch(error => {
                 console.log(error);
             })

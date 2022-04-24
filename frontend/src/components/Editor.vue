@@ -213,7 +213,8 @@ export default {
                 let fd = new FormData()
                 fd.append('file', this.selectedFile)
                 await axios
-                    .post('http://localhost:3000/upload', fd, config)
+                    // .post('http://localhost:3000/upload', fd, config)
+                    .post('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/upload', fd, config)
                     .then(response => {
                         console.log(response.data)
                         this.image = response.data.location

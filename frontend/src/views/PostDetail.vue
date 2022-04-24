@@ -15,10 +15,30 @@
                 <div class='container'>
                     <label class="form-label">Comment</label>
                     <div class="input-group mb-2">
-                        <textarea class="form-control" type="text" rows="4" ></textarea>
+                        <textarea class="form-control" type="text" rows="4" v-model="comment"></textarea>
                     </div>
                     <div class="gap-2 mb-3 d-flex justify-content-end">
-                        <button id="button" type="button" class="btn btn-outline-success" >ส่งความคิดเห็น</button>
+                        <button id="button" type="button" class="btn btn-outline-success" @click="creatComment()">ส่งความคิดเห็น</button>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-lg-12" v-for="(comment, index) in comments" :key="index">
+                <div class="card mt-3 p-3" id="card">
+                    <div class="card-body">
+                        <h4 class="card-title"><strong>{{ comment.comment }}</strong></h4>
+                        <h6 class="card-text">{{ comment.createAt }}</h6>
+                    </div>
+                </div>
+            </div> -->
+            <h5>ความคิดเห็น ({{ comments.length }})</h5>
+            <div class="col-lg-12 mb-3" v-for="(comment, index) in comments" :key="index">
+                <div class="card mt-3 p-3" id="card">
+                    <div class="card-body">
+                        <h4 class="card-title"><strong>{{ comment.comment }}</strong></h4>
+                        <div class="text-end">
+                            <h6 class="card-text"><strong>{{ comment.authorName }}</strong></h6>
+                            <h6 class="card-text">{{ comment.createAt }}</h6>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -35,7 +55,11 @@ export default {
         return {
             postId: this.$route.params.postId,
             postDetail: null,
-            token_user_login: ''
+            token_user_login: '',
+            comment: '',
+            comments: '',
+            comment_in_post: null,
+            userData: null
         }
     },
     async created() {
@@ -53,6 +77,50 @@ export default {
         }).catch(error => {
             console.log(error);
         })
+
+        await axios.get(' https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/comments/all')
+        .then(response => {
+            const comments = response.data.comments
+            // console.log('comments : ', comments);
+            const result = comments.filter((item) => {
+                return item.postId == this.postId
+            })
+            this.comments = result
+            console.log('this.comments: ', this.comments);
+        }).catch(error => {
+            console.log(error);
+        })
+    },
+    methods: {
+        async creatComment() {
+            let date = new Date()
+            const userId = localStorage.getItem('userId')
+            const idToken = localStorage.getItem('token')
+
+            const data = {
+                comment: this.comment,
+                author: userId,
+                authorName: localStorage.getItem('username'),
+                authorEmail: localStorage.getItem('email_user'),
+                createAt: date.toLocaleString(),
+                editAt: '',
+                postId: this.postId
+            }
+            console.log('data : ', data);
+
+            await axios({
+                method: 'post',
+                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/comments-create-comment',
+                data: data,
+                headers: {
+                    Authorization: idToken
+                }
+            }).then(response => {
+                console.log(response.data);
+            }).catch(error => {
+                console.log(error);
+            })
+        }
     },
 }
 </script>

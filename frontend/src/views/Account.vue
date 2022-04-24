@@ -7,7 +7,7 @@
             <h4>username : {{ item.username }}</h4>
             <h4>email : {{ item.email }}</h4>
         </div>
-        <h2>Post Count({{ posts.length }})</h2>
+        <h2>Post Count ({{ posts.length }})</h2>
         <div class="row">
             <div class="col-lg-12" v-for="(post, index) in posts" :key="index">
                 <div class="card p-2 mb-3 card-shadow">
@@ -123,7 +123,8 @@ export default {
                             else if (this.images.length != 0) {
                                 this.images.forEach(image => {
                                     axios
-                                        .delete('http://localhost:3000/delete/' + image)
+                                        // .delete('http://localhost:3000/delete/' + image)
+                                        .delete('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/delete/' + image)
                                         .then(response => {
                                             console.log(response.data)
                                         })
