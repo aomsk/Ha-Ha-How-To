@@ -1,7 +1,7 @@
 # Ha-Ha-How-To
 This project is a part of 06016327 CLOUD-BASED ENTERPRISE APPLICATION DEVELOPMENT 2/2564
 
-### ***ถ้าแค่แก้หน้าเว็บไม่จำเป็นต้องรัน Backend*** API ส่วนใหญ่ Deploy หมดแล้ว ไม่จำเป็นต้อง run backend ก็ได้
+### ***ถ้าแค่แก้หน้าเว็บไม่จำเป็นต้องรัน Backend*** API | ส่วนใหญ่ Deploy หมดแล้ว ไม่จำเป็นต้อง run backend ก็ได้
 ## steps to run Frontend
 ```
 1. cd frontend
