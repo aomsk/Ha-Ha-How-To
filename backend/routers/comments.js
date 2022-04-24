@@ -10,20 +10,20 @@ const dynamodb = new AWS.DynamoDB.DocumentClient();
 const dynamodbTableName = 'comment-howto';
 
 //get comment by commentId
-router.get("/", async (req, res) => {
-    const params = {
-        TableName: dynamodbTableName,
-        Key: {
-            'commentId': req.query.commentId,
-        }
-    }
-    await dynamodb.get(params).promise().then(response => {
-        res.json(response.Item);
-    }, error => {
-        console.log(error);
-        res.status(500).send(error);
-    })
-})
+// router.get("/", async (req, res) => {
+//     const params = {
+//         TableName: dynamodbTableName,
+//         Key: {
+//             'commentId': req.query.commentId,
+//         }
+//     }
+//     await dynamodb.get(params).promise().then(response => {
+//         res.json(response.Item);
+//     }, error => {
+//         console.log(error);
+//         res.status(500).send(error);
+//     })
+// })
 
 //get all comments
 router.get("/all", async (req, res) => {
@@ -47,11 +47,14 @@ router.post("/create-comment", async (req, res) => {
     const commentId = uuid.v1();
     const req_body = {
         'commentId': commentId,
-        'title': req.body.title,
-        'content': req.body.title,
+        'comment': req.body.comment,
         'author': req.body.author,
+        'authorName': req.body.authorName,
+        'authorEmail': req.body.authorEmail,
+        // 'author_avatar_urls': [],
         'createAt': req.body.createAt,
-        'editAt': req.body.editAt
+        'editAt': req.body.editAt,
+        'postId': req.body.postId
     }
     const params = {
         TableName: dynamodbTableName,
