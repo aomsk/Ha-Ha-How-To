@@ -1,10 +1,11 @@
 <template>
     <div>
         <h1>Create Post</h1>
-        <div class="mt-3 mb-3">
+        <!-- <h2>list image : {{ $store.state.list_image }}</h2> -->
+        <div class="mt-3 mb-3" id="input">
             <label class="form-lable mb-1">Title</label>
             <input
-                class="form-control"
+                class="form-control input"
                 type="text"
                 placeholder="Title How To"
                 for="title"
@@ -16,11 +17,13 @@
             <editor v-model="post.content" />
             <div class="content">
                 <hr />
-                <h1>Preview</h1>
+                <h3>Preview</h3>
                 <pre><code>{{ post.content }}</code></pre>
-                <!-- <p v-html="content"></p> -->
+                <p v-html="post.content"></p>
             </div>
-            <button class="btn btn-primary" @click="createPost()">Create Post</button>
+            <div class="d-flex justify-content-end">
+                <button id="button" class="btn btn-outline-primary" @click="createPost()">Create Post</button>
+            </div>
         </div>
     </div>
 </template>
@@ -41,7 +44,8 @@ export default {
                 categories: '',
                 createAt: '',
                 editAt: '',
-                content: ''
+                content: '',
+                images: ''
             }
         }
     },
@@ -58,8 +62,10 @@ export default {
                 // author: this.$store.state.id_user, // userId
                 author: userId, // userId
                 categories: [],
+                images: this.$store.state.list_image,
                 createAt: date.toLocaleString(),
-                editAt: ''
+                createAtSort: date,
+                editAt: '',
             }
             console.log('data : ', data)
 
@@ -119,5 +125,12 @@ export default {
         background-color: #e9ecef;
         color: #495057;
     }
+}
+#button {
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.input {
+    border-radius: 10px;
 }
 </style>

@@ -2,22 +2,23 @@
     <div>
         <h1>My Account</h1>
         <!-- <h2>User Email : {{ $store.state.email_user }}</h2> -->
-        <h2>User Email form localStorage : {{ user_email_localStorage }}</h2>
+        <!-- <h2>User Email form localStorage : {{ user_email_localStorage }}</h2> -->
         <div v-for="item in userData" :key="item.userId">
             <h4>username : {{ item.username }}</h4>
+            <h4>email : {{ item.email }}</h4>
         </div>
-        <h2>Post Count({{ posts.length }})</h2>
+        <h2>Post Count ({{ posts.length }})</h2>
         <div class="row">
             <div class="col-lg-12" v-for="(post, index) in posts" :key="index">
-                <div class="card mt-2">
+                <div class="card p-2 mb-3 card-shadow">
                     <div class="card-body">
-                        <h4 class="card-title">{{ post.title }}</h4>
+                        <h3 class="card-title"><strong>{{ post.title }}</strong></h3>
                         <h6 class="card-text">{{ post.createAt }}</h6>
                         <div class="text-end">
                             <router-link v-bind:to="'/edit-post/' + post.postId">
-                                <button class="btn btn-warning m-2">แก้ไขโพส</button>
+                                <button id="button" class="btn btn-outline-warning m-2">แก้ไขโพส</button>
                             </router-link>
-                            <button class="btn btn-danger" @click="deletePost(post.postId)">ลบโพส</button>
+                            <button id="button" class="btn btn-outline-danger" @click="deletePost(post.postId)">ลบโพส</button>
                         </div>
                     </div>
                 </div>
@@ -36,6 +37,7 @@ export default {
             userData: null,
             user_email_localStorage: '',
             posts: '',
+            images: ''
         }
     },
     async created() {
@@ -82,34 +84,77 @@ export default {
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'ใช่ ลบเลย !',
-                cancelButtonText: 'ยกเลิก'
+                cancelButtonText: 'ยกเลิก',
             }).then(result => {
                 if (result.isConfirmed) {
                     console.log('post_id: ', post_id)
                     const idToken = localStorage.getItem('token')
-
                     const data = {
-                        postId: post_id,
+                        postId: post_id
                     }
 
-                    axios({
-                        method: 'delete',
-                        url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts',
-                        data: data,
-                        headers: {
-                            Authorization: idToken
-                        }
-                    })
-                    .then(response => {
-                        console.log(response.data)
-                        Swal.fire('ลบโพสสำเร็จ !', 'โพส How To ของคุณถูกลบเรียบร้อยแล้ว !', 'success')
-                        setInterval(() => {
-                            window.location.reload()
-                        }, 1500)
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
+                    axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts', {
+                            params: {
+                                postId: post_id
+                            }
+                        })
+                        .then(response => {
+                            this.images = response.data.images
+                            if (this.images == null) {
+                                axios({
+                                    method: 'delete',
+                                    url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts',
+                                    data: data,
+                                    headers: {
+                                        Authorization: idToken
+                                    }
+                                })
+                                    .then(response => {
+                                        console.log(response.data)
+                                        Swal.fire('ลบโพสสำเร็จ !', 'โพส How To ของคุณถูกลบเรียบร้อยแล้ว !', 'success')
+                                        setInterval(() => {
+                                            window.location.reload()
+                                        }, 1500)
+                                    })
+                                    .catch(error => {
+                                        console.log(error)
+                                    })
+                            }
+                            else if (this.images.length != 0) {
+                                this.images.forEach(image => {
+                                    axios
+                                        // .delete('http://localhost:3000/delete/' + image)
+                                        .delete('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/delete/' + image)
+                                        .then(response => {
+                                            console.log(response.data)
+                                        })
+                                        .catch(error => {
+                                            console.log(error)
+                                        })
+                                })
+                                axios({
+                                    method: 'delete',
+                                    url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts',
+                                    data: data,
+                                    headers: {
+                                        Authorization: idToken
+                                    }
+                                })
+                                    .then(response => {
+                                        console.log(response.data)
+                                        Swal.fire('ลบโพสสำเร็จ !', 'โพส How To ของคุณถูกลบเรียบร้อยแล้ว !', 'success')
+                                        setInterval(() => {
+                                            window.location.reload()
+                                        }, 1500)
+                                    })
+                                    .catch(error => {
+                                        console.log(error)
+                                    })
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
                 }
             })
         }
@@ -118,4 +163,12 @@ export default {
 </script>
 
 <style>
+.card-shadow {
+    border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+#button {
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 </style>

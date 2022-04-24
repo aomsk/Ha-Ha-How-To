@@ -2,33 +2,35 @@
     <div class="container">
         <h3 class="mt-5">เข้าสู่ระบบ</h3>
         <div class="col-lg-5 m-auto">
-            <form @submit.prevent="submitSignin()">
-                <div>
-                    <label class="form-lable mb-1">Email</label>
-                    <input
-                        class="form-control"
-                        type="email"
-                        placeholder="example@gmail.com"
-                        for="email"
-                        v-model="signin.email"
-                    />
-                    <!-- :class="{ 'is-invalid': v$.signin.email.$error }" -->
-                    <!-- <div v-if="v$.signin.password.$error" class="my-2 text-danger">กรุณากรอกอีเมล</div> -->
-                </div>
-                <div class="mt-4">
-                    <label class="form-lable mb-1">Password</label>
-                    <input
-                        class="form-control"
-                        type="password"
-                        placeholder="password"
-                        for="password"
-                        v-model="signin.password"
-                    />
-                </div>
-                <div class="d-grid">
-                    <button class="btn btn-success my-4" type="submit">เข้าสู่ระบบ</button>
-                </div>
-            </form>
+            <!-- <div class="card p-3" id="card"> -->
+                <form @submit.prevent="submitSignin()">
+                    <div>
+                        <label class="form-lable mb-1">Email</label>
+                        <input
+                            class="form-control input"
+                            type="email"
+                            placeholder="example@gmail.com"
+                            for="email"
+                            v-model="signin.email"
+                        />
+                        <!-- :class="{ 'is-invalid': v$.signin.email.$error }" -->
+                        <!-- <div v-if="v$.signin.password.$error" class="my-2 text-danger">กรุณากรอกอีเมล</div> -->
+                    </div>
+                    <div class="mt-4">
+                        <label class="form-lable mb-1">Password</label>
+                        <input
+                            class="form-control input"
+                            type="password"
+                            placeholder="password"
+                            for="password"
+                            v-model="signin.password"
+                        />
+                    </div>
+                    <div class="d-grid">
+                        <button id="button" class="btn btn-outline-success my-4" type="submit">เข้าสู่ระบบ</button>
+                    </div>
+                </form>
+            <!-- </div> -->
         </div>
     </div>
 </template>
@@ -101,7 +103,7 @@ export default {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: 'Incorrect username or password',
+                                text: 'Incorrect username or password'
                                 // showConfirmButton: false,
                                 // timer: 1500
                             })
@@ -124,4 +126,16 @@ export default {
 </script>
 
 <style>
+#card {
+    border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    margin-top: 100px;
+}
+#button {
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.input {
+    border-radius: 10px;
+}
 </style>

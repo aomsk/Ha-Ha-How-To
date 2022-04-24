@@ -20,12 +20,6 @@ const routes = [
         component: () => import('../views/Signup.vue')
     },
     {
-        path: '/posts',
-        name: 'Posts',
-        // meta: { guess: true },
-        component: () => import('../views/Posts.vue')
-    },
-    {
         path: '/post/:postId',
         name: 'PostDetail',
         // meta: { guess: true },
@@ -54,7 +48,12 @@ const routes = [
         name: 'ConfirmCode',
         meta: { guess: true },
         component: () => import('../components/ConfirmCode.vue'),
-    }
+    },
+    {
+        path: '/:pathMatch(.*)*', 
+        name: 'NotFound', 
+        component: () => import('../views/NotFound.vue')
+    },
 ]
 
 const router = createRouter({
