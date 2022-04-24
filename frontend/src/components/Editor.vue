@@ -129,8 +129,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" id="button" class="btn btn-primary" @click="onUpload()">Upload Image</button>
+                        <button type="button" id="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="button" class="btn btn-outline-primary" @click="onUpload()">Upload Image</button>
                     </div>
                 </div>
             </div>

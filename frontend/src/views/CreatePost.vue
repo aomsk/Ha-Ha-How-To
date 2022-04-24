@@ -64,6 +64,7 @@ export default {
                 categories: [],
                 images: this.$store.state.list_image,
                 createAt: date.toLocaleString(),
+                createAtSort: date,
                 editAt: '',
             }
             console.log('data : ', data)
