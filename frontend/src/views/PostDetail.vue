@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <h5>ความคิดเห็น ({{ comments.length }})</h5>
+            <!-- <h5>ความคิดเห็น ({{ comments.length }})</h5>
             <div class="col-lg-12 mb-3" v-for="(comment, index) in comments" :key="index">
                 <div class="card mt-3 p-3" id="card">
                     <div class="card-body">
@@ -58,6 +58,39 @@
                             </h6>
                             <h6 class="card-text">{{ comment.createAt }}</h6>
                         </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+        <hr>
+        <h5>ความคิดเห็น ({{ comments.length }})</h5>
+        <div class="col-lg-12 mb-3" v-for="(comment, index) in comments" :key="index">
+            <div class="card mt-3 p-3" id="card">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <strong>{{ comment.content }}</strong>
+                    </h4>
+                    <div class="text-end">
+                        <div v-if="comment.authorEmail == emailUser">
+                            <button
+                                class="btn btn btn-outline-danger m-2"
+                                type="button"
+                                @click="editComment(comment.commentId, comment.content)"
+                            >
+                                <font-awesome-icon icon="pen-to-square" />
+                            </button>
+                            <button
+                                class="btn btn btn-outline-danger"
+                                type="button"
+                                @click="deleteComment(comment.commentId)"
+                            >
+                                <font-awesome-icon icon="trash" />
+                            </button>
+                        </div>
+                        <h6 class="card-text">
+                            <strong>{{ comment.authorName }}</strong>
+                        </h6>
+                        <h6 class="card-text">{{ comment.createAt }}</h6>
                     </div>
                 </div>
             </div>
@@ -108,7 +141,7 @@ export default {
             .get(' https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/comments/all')
             .then(response => {
                 const comments = response.data.comments
-                console.log('comments : ', comments);
+                console.log('comments : ', comments)
                 const result = comments.filter(item => {
                     return item.postId == this.postId
                 })
@@ -121,10 +154,10 @@ export default {
                 }
                 sortByDateResult(result)
                 // console.log('sortByDate_result : ', result)
-                // console.log('sortByDate_result.reverse() : ', result.reverse())  
+                // console.log('sortByDate_result.reverse() : ', result.reverse())
 
                 this.comments = result.reverse()
-                console.log('this.comments: ', this.comments)              
+                console.log('this.comments: ', this.comments)
             })
             .catch(error => {
                 console.log(error)
@@ -142,7 +175,7 @@ export default {
                 authorName: localStorage.getItem('username'),
                 authorEmail: localStorage.getItem('email_user'),
                 createAt: date.toLocaleString(),
-                createAtSort : date,
+                createAtSort: date,
                 editAt: '',
                 postId: this.postId
             }
