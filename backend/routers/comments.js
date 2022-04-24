@@ -47,12 +47,13 @@ router.post("/create-comment", async (req, res) => {
     const commentId = uuid.v1();
     const req_body = {
         'commentId': commentId,
-        'comment': req.body.comment,
+        'content': req.body.content,
         'author': req.body.author,
         'authorName': req.body.authorName,
         'authorEmail': req.body.authorEmail,
         // 'author_avatar_urls': [],
         'createAt': req.body.createAt,
+        'createAtSort': req.body.createAtSort,
         'editAt': req.body.editAt,
         'postId': req.body.postId
     }

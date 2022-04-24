@@ -19,6 +19,8 @@ router.post("/create-post", async (req, res) => {
         'author': req.body.author,
         'categories': req.body.categories,
         'createAt': req.body.createAt,
+        'createAtSort': req.body.createAtSort,
+        // 'author_avatar_urls': [],
         'editAt': req.body.editAt,
         'images': req.body.images,
     }
