@@ -48,13 +48,11 @@ router.post("/create-comment", async (req, res) => {
     const req_body = {
         'commentId': commentId,
         'content': req.body.content,
-        'author': req.body.author,
+        'authorId': req.body.authorId,
         'authorName': req.body.authorName,
         'authorEmail': req.body.authorEmail,
-        // 'author_avatar_urls': [],
         'createAt': req.body.createAt,
-        'createAtSort': req.body.createAtSort,
-        'editAt': req.body.editAt,
+        'updateAt': req.body.updateAt,
         'postId': req.body.postId
     }
     const params = {

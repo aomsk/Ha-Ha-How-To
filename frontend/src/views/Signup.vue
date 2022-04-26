@@ -95,7 +95,8 @@ export default {
         }
     },
     methods: {
-        async postUserToDB() {
+        async createUserToDB() {
+            let date = new Date()
             await axios({
                 method: 'post',
                 url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/user/',
@@ -104,7 +105,9 @@ export default {
                     first_name: this.singup.first_name,
                     last_name: this.singup.last_name,
                     username: this.singup.username,
-                    password: this.singup.password
+                    password: this.singup.password,
+                    createAt: date,
+                    updateAt: ''
                 }
             })
                 .then(response => {
@@ -146,7 +149,7 @@ export default {
                         console.log('err : ', err)
                     } else {
                         console.log('data : ', data)
-                        this.postUserToDB()
+                        this.createUserToDB()
                         this.$router.push('/signup/confirm-code')
                     }
                 })
