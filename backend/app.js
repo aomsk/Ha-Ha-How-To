@@ -26,14 +26,9 @@ app.use(express.json());
 app.use('/serch', serchRouter);
 
 // /user
-const userRouter = require('./routers/user');
+const userRouter = require('./routers/users');
 app.use(express.json());
-app.use('/user', userRouter);
-
-// /users
-const usersRouter = require('./routers/users');
-app.use(express.json());
-app.use('/users', usersRouter);
+app.use('/users', userRouter);
 
 // /image
 // const imageRouter = require('./routers/images');
