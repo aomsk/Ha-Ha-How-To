@@ -55,17 +55,17 @@ export default {
 
             const idToken = localStorage.getItem('token')
             const userId = localStorage.getItem('userId')
+            const userEmail = localStorage.getItem('email_user')
 
             const data = {
                 title: this.post.title,
                 content: this.post.content,
-                // author: this.$store.state.id_user, // userId
-                author: userId, // userId
+                authorId: userId,
+                authorEmail: userEmail,
                 categories: [],
+                createAt: date,
+                updateAt: '',
                 images: this.$store.state.list_image,
-                createAt: date.toLocaleString(),
-                createAtSort: date,
-                editAt: '',
             }
             console.log('data : ', data)
 

@@ -16,9 +16,15 @@
                         <h6 class="card-text">{{ post.createAt }}</h6>
                         <div class="text-end">
                             <router-link v-bind:to="'/edit-post/' + post.postId">
-                                <button id="button" class="btn btn-outline-warning m-2">แก้ไขโพส</button>
+                                <button id="button" class="btn btn-outline-warning m-2">
+                                    <!-- แก้ไขโพส -->
+                                    <font-awesome-icon icon="pen-to-square" />
+                                </button>
                             </router-link>
-                            <button id="button" class="btn btn-outline-danger" @click="deletePost(post.postId)">ลบโพส</button>
+                            <button id="button" class="btn btn-outline-danger" @click="deletePost(post.postId)">
+                                <!-- ลบโพส -->
+                                <font-awesome-icon icon="trash" />
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -66,7 +72,7 @@ export default {
                 const posts = response.data
                 const idUser = localStorage.getItem('userId')
                 const user_post = posts.filter(post => {
-                    return post.author == idUser
+                    return post.authorId == idUser
                 })
                 this.posts = user_post
             })

@@ -37,7 +37,9 @@ router.post('/', async (req, res) => {
         "last_name": req.body.last_name,
         "username": req.body.username,
         "password": password_encrypted,
-        "userId": userId
+        "userId": userId,
+        "createAt": req.body.createAt,
+        "updateAt": req.body.updateAt,
     }
     const params = {
         TableName: dynamodbTableName,

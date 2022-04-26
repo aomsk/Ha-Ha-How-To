@@ -5,7 +5,7 @@
                 <div class="card mt-3 p-3" id="card">
                     <div class="card-body">
                         <h4 class="card-title"><strong>{{ post.title }}</strong></h4>
-                        <h6 class="card-text">{{ post.createAt }}</h6>
+                        <h6 class="card-text">{{ new Date(post.createAt).toLocaleString() }}</h6>
                         <!-- <h6>{{ post.postId }}</h6> -->
                         <div class="d-flex justify-content-end">
                             <router-link v-bind:to="'/post/' + post.postId">

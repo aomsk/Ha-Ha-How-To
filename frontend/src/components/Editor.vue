@@ -219,6 +219,7 @@ export default {
                         console.log(response.data)
                         this.image = response.data.location
                         this.imageName = response.data.originalname
+                        this.selectedFile = null
                     })
                     .catch(error => {
                         console.log(error)
@@ -230,7 +231,6 @@ export default {
                 this.$store.commit('setListImage', this.listImages)
                 console.log('this.listImages: ', this.listImages);
                 console.log('this.$store.state.list_image : ', this.$store.state.list_image);
-                this.selectedFile = null
             }
         }
     }

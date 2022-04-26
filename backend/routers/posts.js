@@ -16,12 +16,11 @@ router.post("/create-post", async (req, res) => {
         'postId': postId,
         'title': req.body.title,
         'content': req.body.content,
-        'author': req.body.author,
+        'authorId': req.body.authorId,
+        'authorEmail': req.body.authorEmail,
         'categories': req.body.categories,
         'createAt': req.body.createAt,
-        'createAtSort': req.body.createAtSort,
-        // 'author_avatar_urls': [],
-        'editAt': req.body.editAt,
+        'updateAt': req.body.updateAt,
         'images': req.body.images,
     }
     const params = {
