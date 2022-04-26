@@ -2,7 +2,10 @@
     <div>
         <div class="mt-3" v-for="item in postDetail" :key="item.postId">
             <h1 id="title">{{ item.title }}</h1>
-            <h6>สร้างโพสเมื่อ : {{ item.createAt }}</h6>
+            <h6>สร้างโพสเมื่อ : {{ new Date(item.createAt).toLocaleString() }}</h6>
+            <div v-if="item.updateAt != ''">
+                <h6>แก้ไขโพสเมื่อ : {{ new Date(item.updateAt).toLocaleString() }}</h6>
+            </div>
             <hr />
             <div>
                 <p v-html="item.content"></p>
@@ -73,13 +76,15 @@
                     <div class="text-end">
                         <div v-if="comment.authorEmail == emailUser">
                             <button
-                                class="btn btn btn-outline-danger m-2"
+                                id="button"
+                                class="btn btn btn-outline-warning m-2"
                                 type="button"
                                 @click="editComment(comment.commentId, comment.content)"
                             >
                                 <font-awesome-icon icon="pen-to-square" />
                             </button>
                             <button
+                                id="button"
                                 class="btn btn btn-outline-danger"
                                 type="button"
                                 @click="deleteComment(comment.commentId)"
@@ -90,7 +95,7 @@
                         <h6 class="card-text">
                             <strong>{{ comment.authorName }}</strong>
                         </h6>
-                        <h6 class="card-text">{{ comment.createAt }}</h6>
+                        <h6 class="card-text">{{ new Date(comment.createAt).toLocaleString()}}</h6>
                     </div>
                 </div>
             </div>
@@ -148,7 +153,7 @@ export default {
 
                 const sortByDateResult = result => {
                     const sorter = (a, b) => {
-                        return new Date(a.createAtSort).getTime() - new Date(b.createAtSort).getTime()
+                        return new Date(a.createAt).getTime() - new Date(b.createAt).getTime()
                     }
                     result.sort(sorter)
                 }
@@ -164,19 +169,45 @@ export default {
             })
     },
     methods: {
+       async updateTimeToEdit(commentId) {
+            const idToken = localStorage.getItem('token')
+            let date = new Date()
+            const data = {
+                commentId: commentId,
+                updateKey: 'updateAt',
+                updateValue: date,
+            }
+            console.log('data : ', data)
+
+            await axios({
+                method: 'patch',
+                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/comments/edit-comment',
+                data: data,
+                headers: {
+                    Authorization: idToken
+                }
+            })
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
         async creatComment() {
             let date = new Date()
-            const userId = localStorage.getItem('userId')
             const idToken = localStorage.getItem('token')
+            const userId = localStorage.getItem('userId')
+            const username = localStorage.getItem('username')
+            const userEmail = localStorage.getItem('email_user')
 
             const data = {
                 content: this.comment,
-                author: userId,
-                authorName: localStorage.getItem('username'),
-                authorEmail: localStorage.getItem('email_user'),
-                createAt: date.toLocaleString(),
-                createAtSort: date,
-                editAt: '',
+                authorId: userId,
+                authorName: username,
+                authorEmail: userEmail,
+                createAt: date,
+                updateAt: '',
                 postId: this.postId
             }
             console.log('data : ', data)
@@ -198,9 +229,9 @@ export default {
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    setInterval(() => {
-                        window.location.reload()
-                    }, 1000)
+                    // setInterval(() => {
+                    //     window.location.reload()
+                    // }, 1000)
                 })
                 .catch(error => {
                     console.log(error)
@@ -234,7 +265,7 @@ export default {
 
                 await axios({
                     method: 'patch',
-                    url: ' https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/comments/edit-comment',
+                    url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/comments/edit-comment',
                     data: data,
                     headers: {
                         Authorization: idToken
@@ -242,6 +273,7 @@ export default {
                 })
                     .then(response => {
                         console.log(response.data)
+                        this.updateTimeToEdit(commentId)
                         Swal.fire({
                             title: 'แก้ไข Comment สำเร็จ',
                             icon: 'success',
@@ -249,9 +281,9 @@ export default {
                             showConfirmButton: false,
                             timer: 1500
                         })
-                        setInterval(() => {
-                            window.location.reload()
-                        }, 1000)
+                        // setInterval(() => {
+                        //     window.location.reload()
+                        // }, 1000)
                     })
                     .catch(error => {
                         console.log(error)
@@ -292,9 +324,9 @@ export default {
                                 showConfirmButton: false,
                                 timer: 1500
                             })
-                            setInterval(() => {
-                                window.location.reload()
-                            }, 1500)
+                            // setInterval(() => {
+                            //     window.location.reload()
+                            // }, 1500)
                         })
                         .catch(error => {
                             console.log(error)

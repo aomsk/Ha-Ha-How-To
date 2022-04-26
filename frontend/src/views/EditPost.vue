@@ -75,8 +75,8 @@ export default {
             let date = new Date()
             const data = {
                 postId: this.$route.params.postId,
-                updateKey: 'editAt',
-                updateValue: date.toLocaleString(),
+                updateKey: 'updateAt',
+                updateValue: date,
             }
             console.log('data : ', data)
 
