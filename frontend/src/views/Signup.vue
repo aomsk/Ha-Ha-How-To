@@ -99,7 +99,7 @@ export default {
             let date = new Date()
             await axios({
                 method: 'post',
-                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/user/',
+                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/users/create-user',
                 data: {
                     email: this.singup.email,
                     first_name: this.singup.first_name,

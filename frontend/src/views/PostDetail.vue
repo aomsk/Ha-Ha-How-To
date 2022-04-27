@@ -214,7 +214,7 @@ export default {
 
             await axios({
                 method: 'post',
-                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/comments-create-comment',
+                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/comments/create-comment',
                 data: data,
                 headers: {
                     Authorization: idToken

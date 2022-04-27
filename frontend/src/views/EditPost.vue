@@ -82,7 +82,7 @@ export default {
 
             await axios({
                 method: 'patch',
-                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts',
+                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts/edit-post',
                 data: data,
                 headers: {
                     Authorization: idToken
@@ -107,7 +107,7 @@ export default {
 
             await axios({
                 method: 'patch',
-                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts',
+                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts/edit-post',
                 data: data,
                 headers: {
                     Authorization: idToken
@@ -140,7 +140,7 @@ export default {
 
             await axios({
                 method: 'patch',
-                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts',
+                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts/edit-post',
                 data: data,
                 headers: {
                     Authorization: idToken

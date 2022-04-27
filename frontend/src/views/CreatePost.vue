@@ -71,7 +71,7 @@ export default {
 
             await axios({
                 method: 'post',
-                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts-create-post',
+                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts/create-post',
                 data: data,
                 headers: {
                     Authorization: idToken

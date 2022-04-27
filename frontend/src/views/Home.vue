@@ -30,7 +30,7 @@ export default {
         }
     },
     async created() {
-        await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts-all')
+        await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts/all')
             .then(response => {
                 this.posts = response.data
             })
@@ -39,7 +39,8 @@ export default {
             })
 
         if (localStorage.getItem('email_user') != null) {
-            await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/user', {
+            await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/users', {
+            // await axios.get('http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/users', {
                 params: {
                     // email: this.$store.state.email_user
                     email: localStorage.getItem('email_user')
