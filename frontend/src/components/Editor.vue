@@ -217,7 +217,6 @@ export default {
                 fd.append('file', this.selectedFile)
                 await axios
                     .post('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/upload-image-post', fd, config)
-                    // .post('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/upload', fd, config)
                     .then(response => {
                         console.log(response.data)
                         this.image = response.data.location

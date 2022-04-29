@@ -91,13 +91,13 @@ export default {
     data() {
         return {
             postId: this.$route.params.postId,
-            postDetail: [],
+            postDetail: '',
             token_user_login: '',
             comment: '',
             comments: '',
             // commentEdit: '',
             // commentEditId: '',
-            comment_in_post: null,
+            comment_in_post: '',
             // userData: null,
             edit: false,
             emailUser: localStorage.getItem('email_user'),
@@ -123,21 +123,23 @@ export default {
                 console.log(error)
             })
 
-        this.postDetail[0].categories.forEach(item => {
-            axios
-                .get('http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/categories', {
-                    params: {
-                        categoryId: item
-                    }
-                })
-                .then(response => {
-                    this.categories.push(response.data)
-                    console.log(this.categories)
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        })
+        if (this.postDetail[0].categories != null) {
+            this.postDetail[0].categories.forEach(item => {
+                axios
+                    .get('http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/categories', {
+                        params: {
+                            categoryId: item
+                        }
+                    })
+                    .then(response => {
+                        this.categories.push(response.data)
+                        console.log(this.categories)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            })
+        }
 
         await axios
             .get(' https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/comments/all')

@@ -131,7 +131,6 @@ export default {
                                 this.images.forEach(image => {
                                     axios
                                         .delete('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/delete-image-post/' + image)
-                                        // .delete('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/delete/' + image)
                                         .then(response => {
                                             console.log(response.data)
                                         })

@@ -43,7 +43,8 @@ export default {
     },
     created() {
         axios
-            .get('http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/categories/all')
+            // .get('http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/categories/all')
+            .get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/categories/all')
             .then(response => {
                 this.categories = response.data.categories
             })
