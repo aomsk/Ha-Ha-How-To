@@ -35,7 +35,6 @@ app.use('/users', userRouter);
 // app.use(express.json());
 // app.use('/image', imageRouter);
 
-
 app.get('/', (req, res) => {
     res.send('<h1>Node.js CRUD API</h1> <h4>Message: Success</h4> <p>Version: 1.0.0</p>')
 })

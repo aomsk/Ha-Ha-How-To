@@ -130,7 +130,8 @@ export default {
                             else if (this.images.length != 0) {
                                 this.images.forEach(image => {
                                     axios
-                                        .delete('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/delete-image-post/' + image)
+                                        .delete('http://uploadimage-env.eba-xmegyc33.us-east-1.elasticbeanstalk.com/delete-image-post/' + image)
+                                        // .delete('http://localhost:3002/delete-image-post/' + image)
                                         .then(response => {
                                             console.log(response.data)
                                         })
