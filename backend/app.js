@@ -20,10 +20,10 @@ const commentRouter = require('./routers/comments');
 app.use(express.json());
 app.use('/comments', commentRouter);
 
-// /serch
-const serchRouter = require('./routers/serch');
+// /categories
+const categoriesRouter = require('./routers/categories');
 app.use(express.json());
-app.use('/serch', serchRouter);
+app.use('/categories', categoriesRouter);
 
 // /user
 const userRouter = require('./routers/users');
