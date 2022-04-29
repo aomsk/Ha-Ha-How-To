@@ -40,6 +40,7 @@ export default {
 
         if (localStorage.getItem('email_user') != null) {
             // await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/users', {
+            console.log('process.env.VUE_APP_GET_USER_BY_EMAIL: ', process.env.VUE_APP_GET_USER_BY_EMAIL);
             await axios.get(process.env.VUE_APP_GET_USER_BY_EMAIL, {
                 params: {
                     // email: this.$store.state.email_user
