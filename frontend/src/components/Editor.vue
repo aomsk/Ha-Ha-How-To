@@ -1,9 +1,9 @@
 <template>
-    <div v-if="editor">
+    <div v-if="editor" class="controls">
         <button
             id="button_editor"
             @click="editor.chain().focus().toggleBold().run()"
-            :class="{ 'is-active': editor.isActive('bold') }"
+            :class="{ 'is-active': editor.isActive('bold')}"
             class="btn btn-outline-secondary m-1"
         >
             <font-awesome-icon icon="bold" />
@@ -11,7 +11,7 @@
         <button
             id="button_editor"
             @click="editor.chain().focus().toggleItalic().run()"
-            :class="{ 'is-active': editor.isActive('italic') }"
+            :class="{ 'is-active': editor.isActive('italic')}"
             class="btn btn-outline-secondary m-1"
         >
             <font-awesome-icon icon="italic" />
@@ -20,6 +20,7 @@
             id="button_editor"
             @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
             :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
+            
             class="btn btn-outline-secondary m-1"
         >
             <font-awesome-icon icon="heading" />
@@ -29,7 +30,8 @@
         <button
             id="button_editor"
             @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
-            :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }"
+            :class="{ 'is-active': editor.isActive('heading', { level: 2 })}"
+            
             class="btn btn-outline-secondary m-1"
         >
             <font-awesome-icon icon="heading" />
@@ -38,7 +40,8 @@
         <button
             id="button_editor"
             @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
-            :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }"
+            :class="{ 'is-active': editor.isActive('heading', { level: 3 })}"
+            v-on:click ="clickedH3 = !clickedH3"
             class="btn btn-outline-secondary m-1"
         >
             <font-awesome-icon icon="heading" />
@@ -56,7 +59,7 @@
         <button
             id="button_editor"
             @click="editor.chain().focus().toggleHeading({ level: 5 }).run()"
-            :class="{ 'is-active': editor.isActive('heading', { level: 5 }) }"
+            :class="{ 'is-active': editor.isActive('heading', { level: 5 })}"
             class="btn btn-outline-secondary m-1"
         >
             <font-awesome-icon icon="heading" />
@@ -65,7 +68,7 @@
         <button
             id="button_editor"
             @click="editor.chain().focus().toggleHeading({ level: 6 }).run()"
-            :class="{ 'is-active': editor.isActive('heading', { level: 6 }) }"
+            :class="{ 'is-active': editor.isActive('heading', { level: 6 })}"
             class="btn btn-outline-secondary m-1"
         >
             <font-awesome-icon icon="heading" />
@@ -137,11 +140,11 @@
         </div>
         <!-- <img v-bind:src="image" /> -->
     </div>
-    <editor-content :editor="editor" class="mt-2 editor" />
+    <editor-content :editor="editor" class="mt-2 mb-3"/>
 </template>
 
 <script>
-import { Editor, EditorContent } from '@tiptap/vue-3'
+import { Editor, EditorContent, BubbleMenu } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import axios from 'axios'
 import Swal from 'sweetalert2'
@@ -163,7 +166,7 @@ export default {
             selectedFile: null,
             image: '',
             imageName: '',
-            listImages: []
+            listImages: [],
         }
     },
     watch: {
@@ -213,8 +216,8 @@ export default {
                 let fd = new FormData()
                 fd.append('file', this.selectedFile)
                 await axios
-                    // .post('http://localhost:3000/upload', fd, config)
-                    .post('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/upload', fd, config)
+                    .post('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/upload-image-post', fd, config)
+                    // .post('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/upload', fd, config)
                     .then(response => {
                         console.log(response.data)
                         this.image = response.data.location
@@ -232,16 +235,20 @@ export default {
                 console.log('this.listImages: ', this.listImages);
                 console.log('this.$store.state.list_image : ', this.$store.state.list_image);
             }
-        }
+        },
     }
 }
 </script>
 <style lang="scss">
 /* Basic editor styles */
-
-// .editor {
-//     border: 1px solid red
-// }
+.ProseMirror {
+    margin-top: 0.75em;
+    padding: 20px;
+    height: auto;
+    border-radius: 5px;
+    border: solid 1px #bdbdbd;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 #button {
     border-radius: 25px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -250,5 +257,9 @@ export default {
 #button_editor {
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.is-active {
+    background-color: #424242;
+    color: #fff;
 }
 </style>

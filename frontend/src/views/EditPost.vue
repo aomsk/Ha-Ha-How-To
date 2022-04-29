@@ -19,12 +19,12 @@
         </form>
         <div>
             <editor v-model="content" />
-            <div class="content">
+            <!-- <div class="content">
                 <hr />
                 <h1>Preview</h1>
-                <!-- <pre><code>{{ content }}</code></pre> -->
+                <pre><code>{{ content }}</code></pre>
                 <p v-html="content"></p>
-            </div>
+            </div> -->
             <div class="d-flex justify-content-end">
                 <button id="button" class="btn btn-outline-success mb-3" @click="saveContent()">Save Content</button>
             </div>
@@ -200,5 +200,9 @@ export default {
 }
 .input {
     border-radius: 10px;
+}
+img {
+    max-width: 50%;
+    height: auto;
 }
 </style>

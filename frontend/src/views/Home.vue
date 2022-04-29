@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="row mt-5">
-            <div class="col-lg-6" v-for="(post, index) in posts" :key="index">
-                <div class="card mt-3 p-3" id="card">
+            <div class="col-lg-4" v-for="(post, index) in posts" :key="index">
+                <div class="card mt-3 p-2" id="card">
                     <div class="card-body">
-                        <h4 class="card-title"><strong>{{ post.title }}</strong></h4>
-                        <h6 class="card-text">{{ new Date(post.createAt).toLocaleString() }}</h6>
+                        <h6 class="card-title"><strong>{{ post.title }}</strong></h6>
+                        <p class="card-text">{{ new Date(post.createAt).toLocaleString() }}</p>
                         <!-- <h6>{{ post.postId }}</h6> -->
                         <div class="d-flex justify-content-end">
                             <router-link v-bind:to="'/post/' + post.postId">
@@ -39,8 +39,8 @@ export default {
             })
 
         if (localStorage.getItem('email_user') != null) {
-            await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/users', {
-            // await axios.get('http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/users', {
+            // await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/users', {
+            await axios.get(process.env.VUE_APP_GET_USER_BY_EMAIL, {
                 params: {
                     // email: this.$store.state.email_user
                     email: localStorage.getItem('email_user')
@@ -49,7 +49,7 @@ export default {
                 let list = []
                 list.push(response.data)
                 this.userData = list
-                console.log(list);
+                // console.log(list);
                 // this.$store.commit('setUserID', list[0].userId)
                 localStorage.setItem('userId', list[0].userId)
                 localStorage.setItem('username', list[0].username)

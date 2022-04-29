@@ -2,6 +2,18 @@
     <div>
         <div class="mt-3" v-for="item in postDetail" :key="item.postId">
             <h1 id="title">{{ item.title }}</h1>
+            <!-- <div class="d-flex justify-content-start">
+                <h5>หมวดหมู่ : </h5>
+                <div v-for="category in categories" :key="category.categoryId">
+                    <h5>&nbsp;{{ category.title }}&nbsp;</h5>
+                </div>
+            </div> -->
+            <div class="d-flex justify-content-start">
+                <p class="mt-3">หมวดหมู่ : </p>
+                <div id="category" class="m-1 card p-1" v-for="category in categories" :key="category.categoryId">
+                    <p class="m-1">{{ category.title }}</p>
+                </div>
+            </div>
             <h6>สร้างโพสเมื่อ : {{ new Date(item.createAt).toLocaleString() }}</h6>
             <div v-if="item.updateAt != ''">
                 <h6>แก้ไขโพสเมื่อ : {{ new Date(item.updateAt).toLocaleString() }}</h6>
@@ -20,7 +32,7 @@
                 <div class="container">
                     <label class="form-label">Comment</label>
                     <div class="input-group mb-2">
-                        <textarea class="form-control" type="text" rows="4" v-model="comment"></textarea>
+                        <textarea class="form-control textarea" type="text" rows="4" v-model="comment"></textarea>
                     </div>
                     <div class="gap-2 mb-3 d-flex justify-content-end">
                         <button
@@ -32,47 +44,15 @@
                     </div>
                 </div>
             </div>
-            <!-- <h5>ความคิดเห็น ({{ comments.length }})</h5>
-            <div class="col-lg-12 mb-3" v-for="(comment, index) in comments" :key="index">
-                <div class="card mt-3 p-3" id="card">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <strong>{{ comment.content }}</strong>
-                        </h4>
-                        <div class="text-end">
-                            <div v-if="comment.authorEmail == emailUser">
-                                <button
-                                    class="btn btn btn-outline-danger m-2"
-                                    type="button"
-                                    @click="editComment(comment.commentId, comment.content)"
-                                >
-                                    <font-awesome-icon icon="pen-to-square" />
-                                </button>
-                                <button
-                                    class="btn btn btn-outline-danger"
-                                    type="button"
-                                    @click="deleteComment(comment.commentId)"
-                                >
-                                    <font-awesome-icon icon="trash" />
-                                </button>
-                            </div>
-                            <h6 class="card-text">
-                                <strong>{{ comment.authorName }}</strong>
-                            </h6>
-                            <h6 class="card-text">{{ comment.createAt }}</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
         </div>
-        <hr>
+        <hr />
         <h5>ความคิดเห็น ({{ comments.length }})</h5>
         <div class="col-lg-12 mb-3" v-for="(comment, index) in comments" :key="index">
             <div class="card mt-3 p-3" id="card">
                 <div class="card-body">
-                    <h4 class="card-title">
+                    <h6 class="card-title">
                         <strong>{{ comment.content }}</strong>
-                    </h4>
+                    </h6>
                     <div class="text-end">
                         <div v-if="comment.authorEmail == emailUser">
                             <button
@@ -111,7 +91,7 @@ export default {
     data() {
         return {
             postId: this.$route.params.postId,
-            postDetail: null,
+            postDetail: [],
             token_user_login: '',
             comment: '',
             comments: '',
@@ -120,7 +100,8 @@ export default {
             comment_in_post: null,
             // userData: null,
             edit: false,
-            emailUser: localStorage.getItem('email_user')
+            emailUser: localStorage.getItem('email_user'),
+            categories: []
         }
     },
     async created() {
@@ -142,11 +123,27 @@ export default {
                 console.log(error)
             })
 
+        this.postDetail[0].categories.forEach(item => {
+            axios
+                .get('http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/categories', {
+                    params: {
+                        categoryId: item
+                    }
+                })
+                .then(response => {
+                    this.categories.push(response.data)
+                    console.log(this.categories)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        })
+
         await axios
             .get(' https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/comments/all')
             .then(response => {
                 const comments = response.data.comments
-                console.log('comments : ', comments)
+                // console.log('comments : ', comments)
                 const result = comments.filter(item => {
                     return item.postId == this.postId
                 })
@@ -162,20 +159,20 @@ export default {
                 // console.log('sortByDate_result.reverse() : ', result.reverse())
 
                 this.comments = result.reverse()
-                console.log('this.comments: ', this.comments)
+                // console.log('this.comments: ', this.comments)
             })
             .catch(error => {
                 console.log(error)
             })
     },
     methods: {
-       async updateTimeToEdit(commentId) {
+        async updateTimeToEdit(commentId) {
             const idToken = localStorage.getItem('token')
             let date = new Date()
             const data = {
                 commentId: commentId,
                 updateKey: 'updateAt',
-                updateValue: date,
+                updateValue: date
             }
             console.log('data : ', data)
 
@@ -353,5 +350,18 @@ export default {
 }
 #edit {
     color: #dc3545;
+}
+#category {
+    border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background-color: #424242;
+    color: #fff;
+}
+.textarea {
+    border-radius: 10px;
+}
+img {
+    max-width: 50%;
+    height: auto;
 }
 </style>
