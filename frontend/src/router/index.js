@@ -54,6 +54,12 @@ const routes = [
         name: 'NotFound', 
         component: () => import('../views/NotFound.vue')
     },
+    {
+        path: '/categories',
+        name: 'categories',
+        meta: { login: true },
+        component: () => import('../views/Categories.vue'),
+    },
 ]
 
 const router = createRouter({

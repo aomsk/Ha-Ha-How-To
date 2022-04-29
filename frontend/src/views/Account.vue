@@ -4,16 +4,16 @@
         <!-- <h2>User Email : {{ $store.state.email_user }}</h2> -->
         <!-- <h2>User Email form localStorage : {{ user_email_localStorage }}</h2> -->
         <div v-for="item in userData" :key="item.userId">
-            <h4>username : {{ item.username }}</h4>
-            <h4>email : {{ item.email }}</h4>
+            <h5>username : {{ item.username }}</h5>
+            <h5>email : {{ item.email }}</h5>
         </div>
-        <h2>Post Count ({{ posts.length }})</h2>
+        <h5>Post Count ({{ posts.length }})</h5>
         <div class="row">
-            <div class="col-lg-12" v-for="(post, index) in posts" :key="index">
+            <div class="col-lg-4" v-for="(post, index) in posts" :key="index">
                 <div class="card p-2 mb-3 card-shadow">
                     <div class="card-body">
-                        <h3 class="card-title"><strong>{{ post.title }}</strong></h3>
-                        <h6 class="card-text">{{ post.createAt }}</h6>
+                        <h6 class="card-title"><strong>{{ post.title }}</strong></h6>
+                        <h6 class="card-text">{{ new Date(post.createAt).toLocaleString() }}</h6>
                         <div class="text-end">
                             <router-link v-bind:to="'/edit-post/' + post.postId">
                                 <button id="button" class="btn btn-outline-warning m-2">
@@ -60,7 +60,7 @@ export default {
                 let list = []
                 list.push(response.data)
                 this.userData = list
-                console.log(list)
+                // console.log(list)
             })
             .catch(error => {
                 console.log(error)
@@ -130,8 +130,8 @@ export default {
                             else if (this.images.length != 0) {
                                 this.images.forEach(image => {
                                     axios
-                                        // .delete('http://localhost:3000/delete/' + image)
-                                        .delete('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/delete/' + image)
+                                        .delete('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/delete-image-post/' + image)
+                                        // .delete('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/delete/' + image)
                                         .then(response => {
                                             console.log(response.data)
                                         })

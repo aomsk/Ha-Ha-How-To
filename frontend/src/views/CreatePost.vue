@@ -2,6 +2,13 @@
     <div>
         <h1>Create Post</h1>
         <!-- <h2>list image : {{ $store.state.list_image }}</h2> -->
+        <div class="d-flex justify-content-start">
+            <p class="mt-3">หมวดหมู่ : </p>
+            <div id="card_selected_category" class="m-1 card p-1" v-for="(item, index) in $store.state.list_categoryName" :key="index">
+                <p class="m-1">{{ item }}</p>
+            </div>
+        </div>
+        <!-- <h5>list_categorise ID : {{ $store.state.list_categoryId }}</h5> -->
         <div class="mt-3 mb-3" id="input">
             <label class="form-lable mb-1">Title</label>
             <input
@@ -15,14 +22,21 @@
         </div>
         <div>
             <editor v-model="post.content" />
-            <div class="content">
+            <!-- <div class="content">
                 <hr />
                 <h3>Preview</h3>
                 <pre><code>{{ post.content }}</code></pre>
                 <p v-html="post.content"></p>
-            </div>
-            <div class="d-flex justify-content-end">
-                <button id="button" class="btn btn-outline-primary" @click="createPost()">Create Post</button>
+            </div> -->
+            <div class="d-flex justify-content-between">
+                <div>
+                    <router-link to="/categories/">
+                        <button id="button" class="btn btn-outline-primary">Back To Category</button>
+                    </router-link>
+                </div>
+                <div class="">
+                    <button id="button" class="btn btn-outline-success" @click="createPost()">Create Post</button>
+                </div>
             </div>
         </div>
     </div>
@@ -62,10 +76,10 @@ export default {
                 content: this.post.content,
                 authorId: userId,
                 authorEmail: userEmail,
-                categories: [],
+                categories: this.$store.state.list_categoryId,
                 createAt: date,
                 updateAt: '',
-                images: this.$store.state.list_image,
+                images: this.$store.state.list_image
             }
             console.log('data : ', data)
 
@@ -88,6 +102,8 @@ export default {
                     })
                     this.post.title = ''
                     this.post.content = ''
+                    this.$store.commit('setListCategoriesId', null)
+                    this.$store.commit('setListCategoriesName', null)
                 })
                 .catch(error => {
                     console.log(error)
@@ -99,15 +115,15 @@ export default {
 
 <style lang="scss">
 /* Basic editor styles */
-.ProseMirror {
-    > * + * {
-        margin-top: 0.75em;
-    }
-    code {
-        background-color: rgba(#616161, 0.1);
-        color: #616161;
-    }
-}
+// .ProseMirror {
+//     > * + * {
+//         margin-top: 0.75em;
+//     }
+//     code {
+//         background-color: rgba(#616161, 0.1);
+//         color: #616161;
+//     }
+// }
 .content {
     padding: 1rem 0 0;
     h3 {
@@ -133,4 +149,18 @@ export default {
 .input {
     border-radius: 10px;
 }
+#card_selected_category {
+    border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background-color: #424242;
+    color: #fff;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+// .ProseMirror {
+//     margin-top: 0.75em;
+//     border: solid 1px #bdbdbd;
+// }
 </style>
