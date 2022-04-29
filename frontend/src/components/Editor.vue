@@ -212,11 +212,33 @@ export default {
                     timer: 1500
                 })
             } else {
+                // const config = { headers: { 'Content-Type': 'multipart/form-data' } }
+                // let fd = new FormData()
+                // fd.append('file', this.selectedFile)
+                // await axios
+                //     .post('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/upload-image-post', fd, config)
+                //     .then(response => {
+                //         console.log(response.data)
+                //         this.image = response.data.location
+                //         this.imageName = response.data.originalname
+                //         this.selectedFile = null
+                //     })
+                //     .catch(error => {
+                //         console.log(error)
+                //     })
+                // if (this.image) {
+                //     this.listImages.push(this.imageName)
+                //     this.editor.chain().focus().setImage({ src: this.image }).run()
+                // }
+                // this.$store.commit('setListImage', this.listImages)
+                // console.log('this.listImages: ', this.listImages);
+                // console.log('this.$store.state.list_image : ', this.$store.state.list_image);
                 const config = { headers: { 'Content-Type': 'multipart/form-data' } }
                 let fd = new FormData()
                 fd.append('file', this.selectedFile)
-                await axios
+                await fetch
                     .post('http://howtouploadimagess3-env.eba-jrujmmxb.us-east-1.elasticbeanstalk.com/upload-image-post', fd, config)
+                    .then(res=>res.json())
                     .then(response => {
                         console.log(response.data)
                         this.image = response.data.location
