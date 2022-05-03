@@ -7,28 +7,33 @@
             <h5>username : {{ item.username }}</h5>
             <h5>email : {{ item.email }}</h5>
         </div>
-        <h5>Post Count ({{ posts.length }})</h5>
-        <div class="row">
-            <div class="col-lg-4" v-for="(post, index) in posts" :key="index">
-                <div class="card p-2 mb-3 card-shadow">
-                    <div class="card-body">
-                        <h6 class="card-title"><strong>{{ post.title }}</strong></h6>
-                        <h6 class="card-text">{{ new Date(post.createAt).toLocaleString() }}</h6>
-                        <div class="text-end">
-                            <router-link v-bind:to="'/edit-post/' + post.postId">
-                                <button id="button" class="btn btn-outline-warning m-2">
-                                    <!-- แก้ไขโพส -->
-                                    <font-awesome-icon icon="pen-to-square" />
+        <h5>คุณมีโพสต๋ How To ทั้งหมด {{ posts.length }}</h5>
+        <div v-if="posts.length > 0">
+            <div class="row">
+                <div class="col-lg-4" v-for="(post, index) in posts" :key="index">
+                    <div class="card p-2 mb-3 card-shadow">
+                        <div class="card-body">
+                            <h6 class="card-title"><strong>{{ post.title }}</strong></h6>
+                            <h6 class="card-text">{{ new Date(post.createAt).toLocaleString() }}</h6>
+                            <div class="text-end">
+                                <router-link v-bind:to="'/edit-post/' + post.postId">
+                                    <button id="button" class="btn btn-outline-warning m-2">
+                                        <!-- แก้ไขโพส -->
+                                        <font-awesome-icon icon="pen-to-square" />
+                                    </button>
+                                </router-link>
+                                <button id="button" class="btn btn-outline-danger" @click="deletePost(post.postId)">
+                                    <!-- ลบโพส -->
+                                    <font-awesome-icon icon="trash" />
                                 </button>
-                            </router-link>
-                            <button id="button" class="btn btn-outline-danger" @click="deletePost(post.postId)">
-                                <!-- ลบโพส -->
-                                <font-awesome-icon icon="trash" />
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div v-else class="no_post">
+            <h4>ยังไม่มีโพสต์ How To</h4>
         </div>
     </div>
 </template>
@@ -174,5 +179,11 @@ export default {
 #button {
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.no_post {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 100px;
 }
 </style>
