@@ -50,9 +50,7 @@ export default {
         this.user_email_localStorage = localStorage.getItem('email_user')
         
         await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/users', {
-        // await axios.get('http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/users', {
                 params: {
-                    // email: this.$store.state.email_user
                     email: localStorage.getItem('email_user')
                 }
             })
@@ -60,7 +58,6 @@ export default {
                 let list = []
                 list.push(response.data)
                 this.userData = list
-                // console.log(list)
             })
             .catch(error => {
                 console.log(error)
@@ -150,9 +147,9 @@ export default {
                                     .then(response => {
                                         console.log(response.data)
                                         Swal.fire('ลบโพสสำเร็จ !', 'โพส How To ของคุณถูกลบเรียบร้อยแล้ว !', 'success')
-                                        setInterval(() => {
-                                            window.location.reload()
-                                        }, 1500)
+                                        // setInterval(() => {
+                                        //     window.location.reload()
+                                        // }, 1500)
                                     })
                                     .catch(error => {
                                         console.log(error)

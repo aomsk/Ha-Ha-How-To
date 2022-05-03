@@ -12,8 +12,11 @@
         <div class="row">
             <div class="col-lg-3 col-sm-6" v-for="(category, index) in categories" :key="index">
                 <a @click="setCategory(category.categoryId, category.title)">
-                    <div class="card mt-3 p-3 card_category" id="card">
-                        <div class="card-body">
+                    <div class="card mt-3 p-3 card_category" id="card" :class="seleted == category.title ? 'selected_category' : 'unselect_category'">
+                        <div class="card-body" >
+                            <!-- <div v-if="seleted == category.title">
+
+                            </div> -->
                             <h6 class="card-title text-center"><strong>{{ category.title }}</strong></h6>
                         </div>
                         <!-- <a @click="setCategory()" class="btn btn-outline-primary">เลือก</a> -->
@@ -23,7 +26,9 @@
         </div>
         <div class="text-end mt-3">
             <router-link to="/create-post/">
-                <button id="button" class="btn btn-outline-primary m-2">Next To Create Post</button>
+                <button id="button" class="btn btn-outline-dark m-2">
+                    Next To Create Post <font-awesome-icon icon="angles-right" />
+                </button>
             </router-link>
         </div>
     </div>
@@ -39,6 +44,7 @@ export default {
             categories: '',
             list_category: [],
             list_categoryId: [],
+            seleted: ''
         }
     },
     created() {
@@ -57,21 +63,14 @@ export default {
             if (this.list_category.length == 0) {
                 this.list_category.push(categoryName)
                 this.list_categoryId.push(categoryId)
+                this.seleted = categoryName
             }
             else if (this.list_category.indexOf(categoryName) != -1) {
                 const index = this.list_category.indexOf(categoryName)
                 this.list_category.splice(index, 1)
                 this.list_categoryId.splice(index, 1)
+                this.seleted = ''
             }
-
-            // if (this.list_category.indexOf(categoryName) == -1) {
-            //     this.list_category.push(categoryName)
-            //     this.list_categoryId.push(categoryId)
-            // } else {
-            //     const index = this.list_category.indexOf(categoryName)
-            //     this.list_category.splice(index, 1)
-            //     this.list_categoryId.splice(index, 1)
-            // }
 
             this.$store.commit('setListCategoriesId', this.list_categoryId)
             this.$store.commit('setListCategoriesName', this.list_category)
@@ -91,13 +90,25 @@ export default {
 }
 .card_category:hover {
     cursor: pointer;
-    background-color: #424242;
+    /* background-color: #73CDC5; */
+    background-color: #253036;
     color: #fff;
+    border: none;
 }
 #card_selected_category {
     border-radius: 15px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    background-color: #424242;
+    background-color: #253036;
+    /* background-color: #73CDC5; */
     color: #fff;
+}
+.selected_category {
+    background-color: #253036;
+    /* background-color: #73CDC5; */
+    color: #fff;
+}
+.unselect_category {
+    background-color: #fff;
+    /* color: #fff; */
 }
 </style>

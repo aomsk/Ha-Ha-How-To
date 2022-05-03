@@ -3,33 +3,33 @@
         <h3 class="mt-5">เข้าสู่ระบบ</h3>
         <div class="col-lg-5 m-auto">
             <!-- <div class="card p-3" id="card"> -->
-                <form @submit.prevent="submitSignin()">
-                    <div>
-                        <label class="form-lable mb-1">Email</label>
-                        <input
-                            class="form-control input"
-                            type="email"
-                            placeholder="example@gmail.com"
-                            for="email"
-                            v-model="signin.email"
-                        />
-                        <!-- :class="{ 'is-invalid': v$.signin.email.$error }" -->
-                        <!-- <div v-if="v$.signin.password.$error" class="my-2 text-danger">กรุณากรอกอีเมล</div> -->
-                    </div>
-                    <div class="mt-4">
-                        <label class="form-lable mb-1">Password</label>
-                        <input
-                            class="form-control input"
-                            type="password"
-                            placeholder="password"
-                            for="password"
-                            v-model="signin.password"
-                        />
-                    </div>
-                    <div class="d-grid">
-                        <button id="button" class="btn btn-outline-success my-4" type="submit">เข้าสู่ระบบ</button>
-                    </div>
-                </form>
+            <form @submit.prevent="submitSignin()">
+                <div>
+                    <label class="form-lable mb-1">Email</label>
+                    <input
+                        class="form-control input"
+                        type="email"
+                        placeholder="example@gmail.com"
+                        for="email"
+                        v-model="signin.email"
+                    />
+                    <!-- :class="{ 'is-invalid': v$.signin.email.$error }" -->
+                    <!-- <div v-if="v$.signin.password.$error" class="my-2 text-danger">กรุณากรอกอีเมล</div> -->
+                </div>
+                <div class="mt-4">
+                    <label class="form-lable mb-1">Password</label>
+                    <input
+                        class="form-control input"
+                        type="password"
+                        placeholder="password"
+                        for="password"
+                        v-model="signin.password"
+                    />
+                </div>
+                <div class="d-grid">
+                    <button id="button" class="btn btn-outline-success my-4" type="submit">เข้าสู่ระบบ</button>
+                </div>
+            </form>
             <!-- </div> -->
         </div>
     </div>
@@ -39,6 +39,7 @@
 // import useVuelidate from '@vuelidate/core'
 // import { required, email } from '@vuelidate/validators'
 import Swal from 'sweetalert2'
+import axios from 'axios'
 import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
 import UserPool from '../config/UserPool'
 
@@ -55,12 +56,13 @@ export default {
                 email: '',
                 password: ''
             },
+            userData: '',
             signInSuccess: false,
             error: false
         }
     },
     methods: {
-        submitSignin() {
+        async submitSignin() {
             if (this.signin.email == '' || this.signin.password == '') {
                 Swal.fire({
                     icon: 'error',
@@ -94,6 +96,23 @@ export default {
                             showConfirmButton: false,
                             timer: 1500
                         })
+                        // if (this.signin.email != '') {
+                        //     axios.get(process.env.VUE_APP_GET_USER_BY_EMAIL, {
+                        //             params: {
+                        //                 email: this.signin.email
+                        //             }
+                        //         })
+                        //         .then(response => {
+                        //             let list = []
+                        //             list.push(response.data)
+                        //             this.userData = list
+                        //             localStorage.setItem('userId', list[0].userId)
+                        //             localStorage.setItem('username', list[0].username)
+                        //         })
+                        //         .catch(error => {
+                        //             console.log(error)
+                        //         })
+                        // }
                         this.$router.push('/')
                     },
                     onFailure: err => {
@@ -134,6 +153,8 @@ export default {
 #button {
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    /* border: 1.5px solid #5AC1C4;
+    color: #5AC1C4; */
 }
 .input {
     border-radius: 10px;

@@ -66,7 +66,7 @@
                     <template v-if="isAuthen">
                         <!-- <li class="nav-item">
                             <router-link class="nav-link" to="/create-post">สร้างโพส How To</router-link>
-                        </li> -->
+                        </li>-->
                         <li class="nav-item">
                             <router-link class="nav-link" to="/categories">สร้างโพส How To</router-link>
                         </li>
@@ -82,9 +82,23 @@
                         </li>
                     </template>
                     <template v-if="isAuthen">
-                        <li class="nav-item my_accouunt">
-                            <router-link class="nav-link" to="/my-account">บัญชีของฉัน</router-link>
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                id="navbarDropdownMenuLink"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >{{ username }}</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li class="dropdown-item">
+                                    <router-link class="nav-link" to="/my-account">บัญชีของฉัน</router-link>
+                                </li>
+                            </ul>
                         </li>
+                        <!-- <li class="nav-item my_accouunt">
+                            <router-link class="nav-link" to="/my-account">บัญชีของฉัน</router-link>
+                        </li>-->
                         <li class="nav-item">
                             <a class="nav-link text-danger" href="#" @click="signOut()">ออกจากระบบ</a>
                         </li>
@@ -101,25 +115,50 @@
 <script>
 import UserPool from '../src/config/UserPool'
 import Swal from 'sweetalert2'
+import axios from 'axios'
 
 export default {
     data() {
         return {
-            isAuthen: false
+            isAuthen: false,
+            userData: null,
+            username: ''
         }
+    },
+    mounted () {
+        this.onAuthChange()
+    },
+    created() {
+        const token = localStorage.getItem('token')
+        if (token) {
+            this.isAuthen = true
+        }
+        this.$store.commit('setAuthen', this.isAuthen)
     },
     methods: {
         onAuthChange() {
             const token = localStorage.getItem('token')
             if (token) {
                 this.isAuthen = true
+                this.getUser()
             }
             console.log('this.isAuthen: ', this.isAuthen)
+        },
+        getUser() {
+            axios.get(process.env.VUE_APP_GET_USER_BY_EMAIL, {
+                params: {
+                    email: localStorage.getItem('email_user')
+                }
+            }).then(response => {
+                this.userData = response.data
+                this.username = this.userData.username
+                localStorage.setItem('userId', this.userData.userId)
+                // console.log('this.userData: ', this.userData);
+            })
         },
         signOut() {
             Swal.fire({
                 title: 'คุณต้องการออกจากระบบใช่มั้ย ?',
-                // text: 'หากลบโพสแล้ว จะไม่สามารถกู้คืนโพสได้อีก',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -133,7 +172,6 @@ export default {
                         user.signOut()
                         console.log('user: ', user)
                         localStorage.clear()
-                        // window.location.reload()
                         setInterval(() => {
                             window.location.reload()
                         }, 1000)
@@ -141,14 +179,6 @@ export default {
                 }
             })
         }
-    },
-    created() {
-        const token = localStorage.getItem('token')
-        if (token) {
-            this.isAuthen = true
-        }
-        console.log('this.isAuthen: ', this.isAuthen)
-        this.$store.commit('setAuthen', this.isAuthen)
     }
 }
 </script>

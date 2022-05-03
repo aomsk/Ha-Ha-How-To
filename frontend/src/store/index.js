@@ -7,7 +7,7 @@ export default createStore({
         list_image: null,
         authen: '',
         list_categoryId: null,
-        list_categoryName: null
+        list_categoryName: null,
     },
     getters: {
         // email:state=>state.email_user,
@@ -15,7 +15,7 @@ export default createStore({
         list_image:state=>state.list_image,
         authen:state=>state.authen,
         list_categoryId:state=>state.list_categoryId,
-        list_categoryName:state=>state.list_categoryName
+        list_categoryName:state=>state.list_categoryName,
     },
     mutations: {
         // setEmail(state, email) {
