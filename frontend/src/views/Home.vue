@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-        <form @submit.prevent="submitSearch()">
+        <!-- <form @submit.prevent="submitSearch()"> -->
             <div class="row mt-3">
-                <div class="col-lg-8 col-9">
+                <div class="col-lg-8 col-12">
                     <label class="form-lable">ค้นหาโพสต์ How To</label>
                     <input
                         class="form-control input"
@@ -12,12 +12,7 @@
                         v-model="search"
                     />
                 </div>
-                <div class="col-lg-2 col-3 mt-4">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-outline-primary" type="button">ค้นหา</button>
-                    </div>
-                </div>
-                <div class="col-lg-2 mt-4">
+                <div class="col-lg-4 mt-4">
                     <div class="dropdown d-grid gap-2">
                         <button
                             class="btn btn-secondary dropdown-toggle"
@@ -37,10 +32,10 @@
                     </div>
                 </div>
             </div>
-        </form>
+        <!-- </form> -->
         <div v-if="result == ''">
             <div class="row mt-3">
-                <div class="col-lg-4" v-for="(post, index) in posts" :key="index">
+                <div class="col-lg-4" v-for="(post, index) in filteredPost || []" :key="index">
                     <div class="card mt-3 p-2" id="card">
                         <div class="card-body">
                             <h6 class="card-title">
@@ -87,12 +82,12 @@ import Swal from 'sweetalert2'
 export default {
     data() {
         return {
-            posts: null,
-            id: '',
+            posts: [],
+            // id: '',
             search: '',
             categories: '',
             result: '',
-            selectedCategory: ''
+            selectedCategory: '',
         }
     },
     async created() {
@@ -108,33 +103,29 @@ export default {
         await axios
             .get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts/all')
             .then(response => {
-                this.posts = response.data
+                // this.posts = response.data
+                const posts = response.data
+                const sortByDateResult = posts => {
+                    const sorter = (a, b) => {
+                        return new Date(a.createAt).getTime() - new Date(b.createAt).getTime()
+                    }
+                    posts.sort(sorter)
+                }
+                sortByDateResult(posts)
+                this.posts = posts.reverse()
             })
             .catch(error => {
                 console.log(error)
             })
-
-        // if (localStorage.getItem('email_user') != null) {
-        //     await axios
-        //         .get(process.env.VUE_APP_GET_USER_BY_EMAIL, {
-        //             params: {
-        //                 email: localStorage.getItem('email_user')
-        //             }
-        //         })
-        //         .then(response => {
-        //             let list = []
-        //             list.push(response.data)
-        //             this.userData = list
-        //             localStorage.setItem('userId', list[0].userId)
-        //             localStorage.setItem('username', list[0].username)
-        //         })
-        //         .catch(error => {
-        //             console.log(error)
-        //         })
-        // }
+    },
+    computed: {
+        filteredPost() {
+            return this.posts.filter((post) => {
+                return post.title.toLowerCase().includes(this.search.toLowerCase())
+            })
+        }
     },
     methods: {
-        submitSearch() {},
         searchByCategory(categoryId, categoryName) {
             const result = this.posts.filter(item => {
                 return item.categories == categoryId
@@ -166,5 +157,17 @@ export default {
 #dropdownMenuButton1 {
     background-color: #fff;
     color: black;
+}
+.input {
+    border-radius: 10px;
+}
+#dropdownMenuButton1 {
+    border-radius: 10px;
+}
+#button:hover {
+    cursor: pointer;
+    background-color: #5AC1C4;
+    color: #fff;
+    border: none;
 }
 </style>

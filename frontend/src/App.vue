@@ -153,7 +153,7 @@ export default {
                 this.userData = response.data
                 this.username = this.userData.username
                 localStorage.setItem('userId', this.userData.userId)
-                console.log('this.userData: ', this.userData);
+                // console.log('this.userData: ', this.userData);
             })
         },
         signOut() {

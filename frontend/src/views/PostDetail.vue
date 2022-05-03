@@ -292,13 +292,12 @@ export default {
         async deleteComment(commentId) {
             Swal.fire({
                 title: 'คุณต้องการลบคอมเมนต์ใช่มั้ย ?',
-                // text: 'หากลบคอมเมนต์แล้ว จะไม่สามารถกู้คืนคอมเมนต์ได้อีก',
                 icon: 'warning',
                 showCancelButton: true,
+                confirmButtonText: 'ใช่ ลบเลย !',
+                cancelButtonText: 'ยกเลิก',
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'ใช่ ลบเลย !',
-                cancelButtonText: 'ยกเลิก'
             }).then(result => {
                 if (result.isConfirmed) {
                     const idToken = localStorage.getItem('token')

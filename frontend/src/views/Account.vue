@@ -147,9 +147,9 @@ export default {
                                     .then(response => {
                                         console.log(response.data)
                                         Swal.fire('ลบโพสสำเร็จ !', 'โพส How To ของคุณถูกลบเรียบร้อยแล้ว !', 'success')
-                                        setInterval(() => {
-                                            window.location.reload()
-                                        }, 1500)
+                                        // setInterval(() => {
+                                        //     window.location.reload()
+                                        // }, 1500)
                                     })
                                     .catch(error => {
                                         console.log(error)
