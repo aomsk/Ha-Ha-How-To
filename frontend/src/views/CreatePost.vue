@@ -92,11 +92,11 @@ export default {
                 }
             })
                 .then(response => {
+                    const postId = response.data.Item.postId
                     console.log(response.data)
                     Swal.fire({
                         title: 'สร้างโพสสำเร็จ',
                         icon: 'success',
-                        // confirmButtonText: 'OK'
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -104,6 +104,7 @@ export default {
                     this.post.content = ''
                     this.$store.commit('setListCategoriesId', null)
                     this.$store.commit('setListCategoriesName', null)
+                    this.$router.push(`/post/${postId}`)
                 })
                 .catch(error => {
                     console.log(error)

@@ -30,7 +30,7 @@
                             <li v-for="(category, index) in categories" :key="index">
                                 <a
                                     class="dropdown-item"
-                                    @click="searchByCategory(category.categoryId)"
+                                    @click="searchByCategory(category.categoryId, category.title)"
                                 >{{ category.title }}</a>
                             </li>
                         </ul>
@@ -47,7 +47,6 @@
                                 <strong>{{ post.title }}</strong>
                             </h6>
                             <p class="card-text">{{ new Date(post.createAt).toLocaleString() }}</p>
-                            <!-- <h6>{{ post.postId }}</h6> -->
                             <div class="d-flex justify-content-end">
                                 <router-link v-bind:to="'/post/' + post.postId">
                                     <button id="button" class="btn btn-outline-dark">อ่านต่อ</button>
@@ -58,18 +57,21 @@
                 </div>
             </div>
         </div>
-        <div v-else>
-            <div class="col-lg-4" v-for="(item, index) in result" :key="index">
-                <div class="card mt-3 p-2" id="card">
-                    <div class="card-body">
-                        <h6 class="card-title">
-                            <strong>{{ item.title }}</strong>
-                        </h6>
-                        <p class="card-text">{{ new Date(item.createAt).toLocaleString() }}</p>
-                        <div class="d-flex justify-content-end">
-                            <router-link v-bind:to="'/post/' + item.postId">
-                                <button id="button" class="btn btn-outline-dark">อ่านต่อ</button>
-                            </router-link>
+        <div v-else-if="result != ''">
+            <div class="row mt-3">
+                <h3>หมวดหมู่ "{{ selectedCategory }}"</h3>
+                <div class="col-lg-4" v-for="(item, index) in result" :key="index">
+                    <div class="card mt-3 p-2" id="card">
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <strong>{{ item.title }}</strong>
+                            </h6>
+                            <p class="card-text">{{ new Date(item.createAt).toLocaleString() }}</p>
+                            <div class="d-flex justify-content-end">
+                                <router-link v-bind:to="'/post/' + item.postId">
+                                    <button id="button" class="btn btn-outline-dark">อ่านต่อ</button>
+                                </router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,6 +82,7 @@
 
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
     data() {
@@ -88,7 +91,8 @@ export default {
             id: '',
             search: '',
             categories: '',
-            result: ''
+            result: '',
+            selectedCategory: ''
         }
     },
     async created() {
@@ -110,38 +114,41 @@ export default {
                 console.log(error)
             })
 
-        if (localStorage.getItem('email_user') != null) {
-            // await axios.get('https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/users', {
-            await axios
-                .get(process.env.VUE_APP_GET_USER_BY_EMAIL, {
-                    params: {
-                        // email: this.$store.state.email_user
-                        email: localStorage.getItem('email_user')
-                    }
-                })
-                .then(response => {
-                    let list = []
-                    list.push(response.data)
-                    this.userData = list
-                    // console.log(list);
-                    // this.$store.commit('setUserID', list[0].userId)
-                    localStorage.setItem('userId', list[0].userId)
-                    localStorage.setItem('username', list[0].username)
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        }
+        // if (localStorage.getItem('email_user') != null) {
+        //     await axios
+        //         .get(process.env.VUE_APP_GET_USER_BY_EMAIL, {
+        //             params: {
+        //                 email: localStorage.getItem('email_user')
+        //             }
+        //         })
+        //         .then(response => {
+        //             let list = []
+        //             list.push(response.data)
+        //             this.userData = list
+        //             localStorage.setItem('userId', list[0].userId)
+        //             localStorage.setItem('username', list[0].username)
+        //         })
+        //         .catch(error => {
+        //             console.log(error)
+        //         })
+        // }
     },
     methods: {
         submitSearch() {},
-        searchByCategory(categoryId) {
-            console.log('categoryId : ', categoryId)
+        searchByCategory(categoryId, categoryName) {
             const result = this.posts.filter(item => {
                 return item.categories == categoryId
             })
             this.result = result
-            console.log('result : ', result)
+            this.selectedCategory = categoryName
+            if (this.result == '') {
+                Swal.fire({
+                    title: 'ไม่มีโพสต์ในหมวดหมู่นี้',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
         }
     }
 }
