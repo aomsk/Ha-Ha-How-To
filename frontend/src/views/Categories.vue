@@ -26,7 +26,9 @@
         </div>
         <div class="text-end mt-3">
             <router-link to="/create-post/">
-                <button id="button" class="btn btn-outline-primary m-2">Next To Create Post</button>
+                <button id="button" class="btn btn-outline-dark m-2">
+                    Next To Create Post <font-awesome-icon icon="angles-right" />
+                </button>
             </router-link>
         </div>
     </div>
@@ -88,19 +90,21 @@ export default {
 }
 .card_category:hover {
     cursor: pointer;
-    background-color: #5AC1C4;
+    /* background-color: #73CDC5; */
+    background-color: #253036;
     color: #fff;
     border: none;
 }
 #card_selected_category {
     border-radius: 15px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    background-color: #5AC1C4;
+    background-color: #253036;
+    /* background-color: #73CDC5; */
     color: #fff;
 }
 .selected_category {
-    /* background-color: #424242; */
-    background-color: #5AC1C4;
+    background-color: #253036;
+    /* background-color: #73CDC5; */
     color: #fff;
 }
 .unselect_category {

@@ -44,7 +44,9 @@
                             <p class="card-text">{{ new Date(post.createAt).toLocaleString() }}</p>
                             <div class="d-flex justify-content-end">
                                 <router-link v-bind:to="'/post/' + post.postId">
-                                    <button id="button" class="btn btn-outline-dark">อ่านต่อ</button>
+                                    <button id="button" class="btn btn-outline-dark">
+                                        อ่านต่อ <font-awesome-icon icon="angles-right" />
+                                    </button>
                                 </router-link>
                             </div>
                         </div>
@@ -64,7 +66,9 @@
                             <p class="card-text">{{ new Date(item.createAt).toLocaleString() }}</p>
                             <div class="d-flex justify-content-end">
                                 <router-link v-bind:to="'/post/' + item.postId">
-                                    <button id="button" class="btn btn-outline-dark">อ่านต่อ</button>
+                                    <button id="button" class="btn btn-outline-dark">
+                                        อ่านต่อ <font-awesome-icon icon="angles-right" />
+                                    </button>
                                 </router-link>
                             </div>
                         </div>
@@ -152,7 +156,9 @@ export default {
 }
 #button {
     border-radius: 10px;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+    /* border: 1.5px solid #5AC1C4;
+    color: #5AC1C4; */
 }
 #dropdownMenuButton1 {
     background-color: #fff;
@@ -164,10 +170,11 @@ export default {
 #dropdownMenuButton1 {
     border-radius: 10px;
 }
-#button:hover {
+/* #button:hover {
     cursor: pointer;
     background-color: #5AC1C4;
     color: #fff;
-    border: none;
-}
+    border: #5AC1C4;
+    margin: auto;
+} */
 </style>

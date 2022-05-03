@@ -153,6 +153,8 @@ export default {
 #button {
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    /* border: 1.5px solid #5AC1C4;
+    color: #5AC1C4; */
 }
 .input {
     border-radius: 10px;

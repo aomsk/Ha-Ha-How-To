@@ -31,7 +31,9 @@
             <div class="d-flex justify-content-between">
                 <div>
                     <router-link to="/categories/">
-                        <button id="button" class="btn btn-outline-primary">Back To Category</button>
+                        <button id="button-back" class="btn btn-outline-dark">
+                            <font-awesome-icon icon="angles-left" /> Back To Category
+                        </button>
                     </router-link>
                 </div>
                 <div class="">
@@ -143,6 +145,19 @@ export default {
         color: #495057;
     }
 }
+#button-back {
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    // border: 1.5px solid #27A8C1;
+    // color: #27A8C1;
+}
+// #button-back:hover {
+//     cursor: pointer;
+//     background-color: #27A8C1;
+//     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+//     color: #fff;
+//     border: none;
+// }
 #button {
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
