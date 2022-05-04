@@ -223,6 +223,13 @@ export default {
                         this.image = response.data.location
                         this.imageName = response.data.originalname
                         this.selectedFile = null
+                        Swal.fire({
+                            title: 'อัปโหลดรูปภาพสำเร็จ',
+                            icon: 'success',
+                            // confirmButtonText: 'OK'
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
                     })
                     .catch(error => {
                         console.log(error)

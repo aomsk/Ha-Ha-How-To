@@ -49,7 +49,7 @@
                     <label class="form-lable mb-1">Password</label>
                     <input
                         class="form-control input"
-                        type="text"
+                        type="password"
                         placeholder="8-20 ตัวอักษร"
                         for="password"
                         v-model="singup.password"

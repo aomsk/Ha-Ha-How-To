@@ -83,6 +83,7 @@ export default {
             await axios({
                 method: 'patch',
                 url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts/edit-post',
+                // url: 'http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/posts/edit-post',
                 data: data,
                 headers: {
                     Authorization: idToken
@@ -108,6 +109,7 @@ export default {
             await axios({
                 method: 'patch',
                 url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts/edit-post',
+                // url: 'http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/posts/edit-post',
                 data: data,
                 headers: {
                     Authorization: idToken
@@ -141,6 +143,7 @@ export default {
             await axios({
                 method: 'patch',
                 url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts/edit-post',
+                // url: 'http://howtocrud-env.eba-p33xseme.us-east-1.elasticbeanstalk.com/posts/edit-post',
                 data: data,
                 headers: {
                     Authorization: idToken

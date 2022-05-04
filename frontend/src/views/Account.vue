@@ -7,7 +7,7 @@
             <h5>username : {{ item.username }}</h5>
             <h5>email : {{ item.email }}</h5>
         </div>
-        <h5>คุณมีโพสต๋ How To ทั้งหมด {{ posts.length }}</h5>
+        <h5>คุณมีโพสต๋ How To ทั้งหมด {{ posts.length }} โพสต์</h5>
         <div v-if="posts.length > 0">
             <div class="row">
                 <div class="col-lg-4" v-for="(post, index) in posts" :key="index">
