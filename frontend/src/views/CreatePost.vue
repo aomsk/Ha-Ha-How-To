@@ -28,7 +28,7 @@
                 <pre><code>{{ post.content }}</code></pre>
                 <p v-html="post.content"></p>
             </div> -->
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-3">
                 <div>
                     <router-link to="/categories/">
                         <button id="button-back" class="btn btn-outline-dark">
@@ -168,7 +168,8 @@ export default {
 #card_selected_category {
     border-radius: 15px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    background-color: #424242;
+    // background-color: #424242;
+    background-color: #73CDC5;
     color: #fff;
 }
 img {

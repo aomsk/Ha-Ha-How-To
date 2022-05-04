@@ -355,7 +355,8 @@ export default {
 #category {
     border-radius: 15px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    background-color: #424242;
+    /* background-color: #424242; */
+    background-color: #73CDC5;
     color: #fff;
 }
 .textarea {
