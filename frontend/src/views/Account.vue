@@ -4,8 +4,9 @@
         <div class="row">
             <div class="col-lg-6">
                 <div v-for="item in userData" :key="item.userId">
-                    <h5>username : {{ item.username }}</h5>
-                    <h5>email : {{ item.email }}</h5>
+                    <h5>Name : {{ item.first_name }} {{ item.last_name }}</h5>
+                    <h5>Username : {{ item.username }}</h5>
+                    <h5>Email : {{ item.email }}</h5>
                 </div>
             </div>
             <!-- <div class="col-lg-6">

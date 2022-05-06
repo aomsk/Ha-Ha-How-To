@@ -73,7 +73,8 @@
                             </button>
                         </div>
                         <h6 class="card-text">
-                            <strong>{{ comment.authorName }}</strong>
+                            <!-- <strong>{{ comment.authorName }}</strong> -->
+                            <strong>{{ comment.authorEmail }}</strong>
                         </h6>
                         <h6 class="card-text">{{ new Date(comment.createAt).toLocaleString()}}</h6>
                     </div>
