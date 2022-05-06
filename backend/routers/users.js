@@ -75,11 +75,11 @@ router.post('/create-user', async (req, res) => {
 })
 
 //edit user
-router.patch("/edit-user", async (req, res) => {
+router.patch("/edit-profile", async (req, res) => {
     const params = {
         TableName: dynamodbTableName,
         Key: {
-            'userId': req.body.userId
+            'email': req.body.email
         },
         UpdateExpression: `set ${req.body.updateKey} = :value`,
         ExpressionAttributeValues: {

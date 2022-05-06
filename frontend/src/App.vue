@@ -72,6 +72,9 @@
                                     <hr class="dropdown-divider" />
                                 </li>
                                 <li>
+                                    <!-- <div class="d-grid">
+                                        <button type="button" class="btn btn-outline-danger" @click="signOut()">ออกจากระบบ</button>
+                                    </div> -->
                                     <a class="dropdown-item" @click="signOut()">ออกจากระบบ</a>
                                 </li>
                             </ul>
