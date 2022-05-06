@@ -68,7 +68,7 @@
                             <router-link class="nav-link" to="/create-post">สร้างโพส How To</router-link>
                         </li>-->
                         <li class="nav-item">
-                            <router-link class="nav-link" to="/categories">สร้างโพส How To</router-link>
+                            <router-link class="nav-link" to="/categories">สร้างโพสต์ How To</router-link>
                         </li>
                     </template>
                 </ul>
@@ -94,6 +94,9 @@
                                 <li class="dropdown-item">
                                     <router-link class="nav-link" to="/my-account">บัญชีของฉัน</router-link>
                                 </li>
+                                <!-- <li class="dropdown-item">
+                                    <a class="nav-link text-danger" href="#" @click="signOut()">ออกจากระบบ</a>
+                                </li> -->
                             </ul>
                         </li>
                         <!-- <li class="nav-item my_accouunt">

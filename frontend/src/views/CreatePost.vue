@@ -97,7 +97,7 @@ export default {
                     const postId = response.data.Item.postId
                     console.log(response.data)
                     Swal.fire({
-                        title: 'สร้างโพสสำเร็จ',
+                        title: 'สร้างโพสต์สำเร็จ',
                         icon: 'success',
                         showConfirmButton: false,
                         timer: 1500
