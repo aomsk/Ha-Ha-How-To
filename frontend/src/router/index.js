@@ -60,6 +60,12 @@ const routes = [
         meta: { login: true },
         component: () => import('../views/Categories.vue'),
     },
+    {
+        path: '/edit-profile',
+        name: 'EditProfile',
+        meta: { login: true },
+        component: () => import('../views/EditProfile.vue'),
+    },
 ]
 
 const router = createRouter({

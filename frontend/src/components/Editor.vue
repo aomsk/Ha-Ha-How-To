@@ -252,7 +252,7 @@ export default {
     margin-top: 0.75em;
     padding: 20px;
     height: auto;
-    border-radius: 5px;
+    border-radius: 10px;
     border: solid 1px #bdbdbd;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }

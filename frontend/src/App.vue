@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <!-- <a class="navbar-brand" href="#">How To</a> -->
+        <div class="container">
+        <!-- <div class="container-fluid"> -->
             <a class="navbar-brand" href="/">
                 <img
                     src="../public/H-Logo-removebg.png"
@@ -23,33 +23,6 @@
             >
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <!-- <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <router-link class="nav-link" to="/">หน้าแรก</router-link>
-                    </li>
-                    <template v-if="!isAuthen">
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/signin">เข้าสู่ระบบ</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/signup">ลงทะเบียน</router-link>
-                        </li>
-                    </template>
-                    <template v-if="isAuthen">
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/create-post">สร้างโพส How To</router-link>
-                        </li>
-                        <li class="nav-item my_accouunt">
-                            <router-link class="nav-link" to="/my-account">บัญชีของฉัน</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-danger" href="#" @click="signOut()">ออกจากระบบ</a>
-                        </li>
-                    </template>
-                </ul>
-            </div>-->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -64,9 +37,6 @@
                         </li>
                     </template>-->
                     <template v-if="isAuthen">
-                        <!-- <li class="nav-item">
-                            <router-link class="nav-link" to="/create-post">สร้างโพส How To</router-link>
-                        </li>-->
                         <li class="nav-item">
                             <router-link class="nav-link" to="/categories">สร้างโพสต์ How To</router-link>
                         </li>
@@ -85,25 +55,26 @@
                         <li class="nav-item dropdown">
                             <a
                                 class="nav-link dropdown-toggle"
-                                id="navbarDropdownMenuLink"
+                                href="#"
+                                id="navbarDropdown"
                                 role="button"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                             >{{ username }}</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li class="dropdown-item">
-                                    <router-link class="nav-link" to="/my-account">บัญชีของฉัน</router-link>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="/my-account">บัญชีของฉัน</a>
                                 </li>
-                                <!-- <li class="dropdown-item">
-                                    <a class="nav-link text-danger" href="#" @click="signOut()">ออกจากระบบ</a>
-                                </li> -->
+                                <li>
+                                    <a class="dropdown-item" href="/edit-profile">แก้ไขโปรไฟล์</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" @click="signOut()">ออกจากระบบ</a>
+                                </li>
                             </ul>
-                        </li>
-                        <!-- <li class="nav-item my_accouunt">
-                            <router-link class="nav-link" to="/my-account">บัญชีของฉัน</router-link>
-                        </li>-->
-                        <li class="nav-item">
-                            <a class="nav-link text-danger" href="#" @click="signOut()">ออกจากระบบ</a>
                         </li>
                     </template>
                 </ul>
@@ -128,7 +99,7 @@ export default {
             username: ''
         }
     },
-    mounted () {
+    mounted() {
         this.onAuthChange()
     },
     created() {
@@ -148,17 +119,19 @@ export default {
             console.log('this.isAuthen: ', this.isAuthen)
         },
         getUser() {
-            axios.get(process.env.VUE_APP_GET_USER_BY_EMAIL, {
-                params: {
-                    email: localStorage.getItem('email_user')
-                }
-            }).then(response => {
-                this.userData = response.data
-                this.username = this.userData.username
-                localStorage.setItem('userId', this.userData.userId)
-                localStorage.setItem('username', this.userData.username)
-                // console.log('this.userData: ', this.userData);
-            })
+            axios
+                .get(process.env.VUE_APP_GET_USER_BY_EMAIL, {
+                    params: {
+                        email: localStorage.getItem('email_user')
+                    }
+                })
+                .then(response => {
+                    this.userData = response.data
+                    this.username = this.userData.username
+                    localStorage.setItem('userId', this.userData.userId)
+                    localStorage.setItem('username', this.userData.username)
+                    // console.log('this.userData: ', this.userData);
+                })
         },
         signOut() {
             Swal.fire({
