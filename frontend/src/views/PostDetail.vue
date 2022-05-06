@@ -14,9 +14,9 @@
                     <p class="m-1">{{ category.title }}</p>
                 </div>
             </div>
-            <h6>สร้างโพสเมื่อ : {{ new Date(item.createAt).toLocaleString() }}</h6>
+            <h6>สร้างโพสต์เมื่อ : {{ new Date(item.createAt).toLocaleString() }}</h6>
             <div v-if="item.updateAt != ''">
-                <h6>แก้ไขโพสเมื่อ : {{ new Date(item.updateAt).toLocaleString() }}</h6>
+                <h6>แก้ไขโพสต์เมื่อ : {{ new Date(item.updateAt).toLocaleString() }}</h6>
             </div>
             <hr />
             <div>
