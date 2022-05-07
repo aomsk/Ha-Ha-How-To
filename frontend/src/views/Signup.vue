@@ -1,74 +1,85 @@
 <template>
     <div class="container">
-        <h3 class="mt-5">ลงทะเบียน</h3>
-        <div class="col-lg-5 m-auto">
-            <form @submit.prevent="submitSignup()">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <label class="form-lable mb-1">First Name</label>
-                        <input
-                            class="form-control input"
-                            type="first_name"
-                            placeholder="John"
-                            for="first_name"
-                            v-model="singup.first_name"
-                        />
-                    </div>
-                    <div class="col-lg-6">
-                        <label class="form-lable mb-1">Last Name</label>
-                        <input
-                            class="form-control input"
-                            type="last_name"
-                            placeholder="Doe"
-                            for="last_name"
-                            v-model="singup.last_name"
-                        />
-                    </div>
+        <h3 class="mt-5 fw-bold">ลงทะเบียน</h3>
+        <div class="row">
+            <div class="col-lg-6 styles">
+                <h1 class="title">How To</h1>
+                <p class="fw-normal">แหล่งรวบรวมการทำ How To สิ่งต่าง ๆ ในโลกใบนี้</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="m-auto">
+                    <form @submit.prevent="submitSignup()">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label class="form-lable mb-1">First Name</label>
+                                <input
+                                    class="form-control input"
+                                    type="first_name"
+                                    placeholder="John"
+                                    for="first_name"
+                                    v-model="singup.first_name"
+                                />
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-lable mb-1">Last Name</label>
+                                <input
+                                    class="form-control input"
+                                    type="last_name"
+                                    placeholder="Doe"
+                                    for="last_name"
+                                    v-model="singup.last_name"
+                                />
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <label class="form-lable mb-1">Username</label>
+                            <input
+                                class="form-control input"
+                                type="text"
+                                placeholder="username"
+                                for="username"
+                                v-model="singup.username"
+                            />
+                        </div>
+                        <div class="mt-3">
+                            <label class="form-lable mb-1">Email</label>
+                            <input
+                                class="form-control input"
+                                type="email"
+                                placeholder="example@gmail.com"
+                                for="email"
+                                v-model="singup.email"
+                            />
+                        </div>
+                        <div class="mt-3">
+                            <label class="form-lable mb-1">Password</label>
+                            <input
+                                class="form-control input"
+                                type="password"
+                                placeholder="8-20 ตัวอักษร"
+                                for="password"
+                                v-model="singup.password"
+                            />
+                        </div>
+                        <div class="mt-3">
+                            <label class="form-lable mb-1">Confirm Password</label>
+                            <input
+                                class="form-control input"
+                                type="password"
+                                placeholder="Confirm Password"
+                                for="confirm_passeord"
+                                v-model="singup.confirm_passeord"
+                            />
+                        </div>
+                        <div class="d-grid">
+                            <button id="button" class="btn btn-outline-primary my-4" type="submit">ลงะทเบียน</button>
+                            <a class="text-center">
+                                <router-link class="nav-link" to="/signin">มี Account แล้ว ต้องการเข้าสู่ระบบ</router-link>
+                            </a>
+                        </div>
+                    </form>
                 </div>
-                <div class="mt-3">
-                    <label class="form-lable mb-1">Username</label>
-                    <input
-                        class="form-control input"
-                        type="text"
-                        placeholder="username"
-                        for="username"
-                        v-model="singup.username"
-                    />
-                </div>
-                <div class="mt-3">
-                    <label class="form-lable mb-1">Email</label>
-                    <input
-                        class="form-control input"
-                        type="email"
-                        placeholder="example@gmail.com"
-                        for="email"
-                        v-model="singup.email"
-                    />
-                </div>
-                <div class="mt-3">
-                    <label class="form-lable mb-1">Password</label>
-                    <input
-                        class="form-control input"
-                        type="password"
-                        placeholder="8-20 ตัวอักษร"
-                        for="password"
-                        v-model="singup.password"
-                    />
-                </div>
-                <!-- <div class="mt-3">
-                    <label class="form-lable mb-1">Confirm Password</label>
-                    <input
-                        class="form-control input"
-                        type="password"
-                        placeholder="Confirm Password"
-                        for="confirm_passeord"
-                        v-model="singup.confirm_passeord"
-                    />
-                </div>-->
-                <div class="d-grid">
-                    <button id="button" class="btn btn-outline-primary my-4" type="submit">ลงะทเบียน</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </template>
@@ -90,7 +101,7 @@ export default {
                 password: '',
                 confirm_passeord: ''
             },
-            data_user: null,
+            data_user: null
             // singup_success: false,
         }
     },
@@ -128,14 +139,36 @@ export default {
 
         submitSignup() {
             // this.$router.push('/confirm-code')
-            if (this.singup.first_name == '' || this.singup.last_name == '' || this.singup.email == '' || this.singup.username == '' || this.singup.password == '') {
+            if (
+                this.singup.first_name == '' ||
+                this.singup.last_name == '' ||
+                this.singup.email == '' ||
+                this.singup.username == '' ||
+                this.singup.password == '' ||
+                this.singup.confirm_passeord == ''
+            ) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'กรุณากรอกข้อมูล!!!'
                 })
             }
-            if (this.singup.first_name != '' || this.singup.last_name != '' || this.singup.email != '' || this.singup.username != '' || this.singup.password != '') {
+            if (this.singup.confirm_passeord != this.singup.password) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'รหัสผ่านไม่ตรงกัน กรุณากรอกใหม่'
+                })
+                this.singup.confirm_passeord = ''
+            }
+            if (
+                this.singup.first_name != '' &&
+                this.singup.last_name != '' &&
+                this.singup.email != '' &&
+                this.singup.username != '' &&
+                this.singup.password != '' &&
+                this.singup.confirm_passeord == this.singup.password
+            ) {
                 localStorage.setItem('email_user_signup', this.singup.email)
 
                 let attributeList = [
@@ -154,7 +187,7 @@ export default {
                     }
                 })
             }
-        },
+        }
     }
 }
 </script>
@@ -166,5 +199,28 @@ export default {
 }
 .input {
     border-radius: 10px;
+}
+.title {
+    font-size: 120px;
+    font-weight: bold;
+}
+.styles {
+    margin-top: 100px;
+}
+@media only screen and (max-width: 600px) {
+    .title {
+        font-size: 40px;
+    }
+    .styles {
+        margin-top: 0px;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .title {
+        font-size: 60px;
+    }
+    .styles {
+        margin-top: 0px;
+    }
 }
 </style>
