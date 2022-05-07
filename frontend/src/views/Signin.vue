@@ -1,36 +1,40 @@
 <template>
     <div class="container">
-        <h3 class="mt-5">เข้าสู่ระบบ</h3>
-        <div class="col-lg-5 m-auto">
-            <!-- <div class="card p-3" id="card"> -->
-            <form @submit.prevent="submitSignin()">
-                <div>
-                    <label class="form-lable mb-1">Email</label>
-                    <input
-                        class="form-control input"
-                        type="email"
-                        placeholder="example@gmail.com"
-                        for="email"
-                        v-model="signin.email"
-                    />
-                    <!-- :class="{ 'is-invalid': v$.signin.email.$error }" -->
-                    <!-- <div v-if="v$.signin.password.$error" class="my-2 text-danger">กรุณากรอกอีเมล</div> -->
+        <h3 class="mt-5 fw-bold">เข้าสู่ระบบ</h3>
+        <div class="row styles">
+            <div class="col-lg-6 m-auto">
+                <h1 class="title">How To</h1>
+                <p class="fw-normal">แหล่งรวบรวมการทำ How To สิ่งต่าง ๆ ในโลกใบนี้</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="m-auto">
+                    <form @submit.prevent="submitSignin()">
+                        <div>
+                            <label class="form-lable mb-1">Email</label>
+                            <input
+                                class="form-control input"
+                                type="email"
+                                placeholder="example@gmail.com"
+                                for="email"
+                                v-model="signin.email"
+                            />
+                        </div>
+                        <div class="mt-4">
+                            <label class="form-lable mb-1">Password</label>
+                            <input
+                                class="form-control input"
+                                type="password"
+                                placeholder="password"
+                                for="password"
+                                v-model="signin.password"
+                            />
+                        </div>
+                        <div class="d-grid">
+                            <button id="button" class="btn btn-outline-success my-4" type="submit">เข้าสู่ระบบ</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="mt-4">
-                    <label class="form-lable mb-1">Password</label>
-                    <input
-                        class="form-control input"
-                        type="password"
-                        placeholder="password"
-                        for="password"
-                        v-model="signin.password"
-                    />
-                </div>
-                <div class="d-grid">
-                    <button id="button" class="btn btn-outline-success my-4" type="submit">เข้าสู่ระบบ</button>
-                </div>
-            </form>
-            <!-- </div> -->
+            </div>
         </div>
     </div>
 </template>
@@ -67,7 +71,9 @@ export default {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Please enter email or password!!!'
+                    text: 'กรุณากรอก อีเมล และรหัสผ่าน',
+                    showConfirmButton: false,
+                    timer: 1500
                 })
             }
             if (this.signin.email != '' || this.signin.password != '') {
@@ -122,9 +128,9 @@ export default {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: 'Incorrect username or password'
-                                // showConfirmButton: false,
-                                // timer: 1500
+                                text: 'อีเมล หรือ รหัสผ่านผิด',
+                                showConfirmButton: false,
+                                timer: 1500
                             })
                         }
                     },
@@ -158,5 +164,28 @@ export default {
 }
 .input {
     border-radius: 10px;
+}
+.title {
+    font-size: 120px;
+    font-weight: bold;
+}
+.styles {
+    margin-top: 80px;
+}
+@media only screen and (max-width: 600px) {
+    .title {
+        font-size: 40px;
+    }
+    .styles {
+        margin-top: 0px;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .title {
+        font-size: 60px;
+    }
+    .styles {
+        margin-top: 0px;
+    }
 }
 </style>

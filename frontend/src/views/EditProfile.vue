@@ -74,6 +74,15 @@ export default {
     },
     methods: {
         async submitEditProfile() {
+            if (this.profile.first_name == this.userData.first_name || this.profile.last_name == this.userData.last_name || this.profile.username == this.userData.username) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'กรุณาเปลี่ยนข้อมูลที่ต้องการดปลี่ยนก่อนกดปุ่มบันทึก',
+                    showConfirmButton: true,
+                    // timer: 2000
+                })
+            }
             if (this.profile.first_name !== this.userData.first_name) {
                 const data = {
                     email: this.userData.email,
