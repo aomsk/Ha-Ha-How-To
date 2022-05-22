@@ -67,66 +67,66 @@ export default {
     },
     methods: {
         async createPost() {
-            let date = new Date()
+            if (this.post.title != '' && this.post.content != '') {
+                let date = new Date()
 
-            const idToken = localStorage.getItem('token')
-            const userId = localStorage.getItem('userId')
-            const userEmail = localStorage.getItem('email_user')
+                const idToken = localStorage.getItem('token')
+                const userId = localStorage.getItem('userId')
+                const userEmail = localStorage.getItem('email_user')
 
-            const data = {
-                title: this.post.title,
-                content: this.post.content,
-                authorId: userId,
-                authorEmail: userEmail,
-                categories: this.$store.state.list_categoryId,
-                createAt: date,
-                updateAt: '',
-                images: this.$store.state.list_image
-            }
-            console.log('data : ', data)
-
-            await axios({
-                method: 'post',
-                url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts/create-post',
-                data: data,
-                headers: {
-                    Authorization: idToken
+                const data = {
+                    title: this.post.title,
+                    content: this.post.content,
+                    authorId: userId,
+                    authorEmail: userEmail,
+                    categories: this.$store.state.list_categoryId,
+                    createAt: date,
+                    updateAt: '',
+                    images: this.$store.state.list_image
                 }
-            })
-                .then(response => {
-                    const postId = response.data.Item.postId
-                    console.log(response.data)
-                    Swal.fire({
-                        title: 'สร้างโพสต์สำเร็จ',
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timer: 1500
+                console.log('data : ', data)
+
+                await axios({
+                    method: 'post',
+                    url: 'https://jdnyq8ax81.execute-api.us-east-1.amazonaws.com/api/posts/create-post',
+                    data: data,
+                    headers: {
+                        Authorization: idToken
+                    }
+                })
+                    .then(response => {
+                        const postId = response.data.Item.postId
+                        console.log(response.data)
+                        Swal.fire({
+                            title: 'สร้างโพสต์สำเร็จ',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        this.post.title = ''
+                        this.post.content = ''
+                        this.$store.commit('setListCategoriesId', null)
+                        this.$store.commit('setListCategoriesName', null)
+                        this.$router.push(`/post/${postId}`)
                     })
-                    this.post.title = ''
-                    this.post.content = ''
-                    this.$store.commit('setListCategoriesId', null)
-                    this.$store.commit('setListCategoriesName', null)
-                    this.$router.push(`/post/${postId}`)
+                    .catch(error => {
+                        console.log(error)
+                    })
+            }
+            else {
+                Swal.fire({
+                    title: 'กรุณากรอกชื่อ และเนื้อหาของโพสต์ How To ',
+                    icon: 'warning',
+                    showConfirmButton: true,
+                    // timer: 1500
                 })
-                .catch(error => {
-                    console.log(error)
-                })
+            }
         }
     }
 }
 </script>
 
 <style lang="scss">
-/* Basic editor styles */
-// .ProseMirror {
-//     > * + * {
-//         margin-top: 0.75em;
-//     }
-//     code {
-//         background-color: rgba(#616161, 0.1);
-//         color: #616161;
-//     }
-// }
 .content {
     padding: 1rem 0 0;
     h3 {

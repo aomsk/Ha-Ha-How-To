@@ -1,15 +1,24 @@
 <template>
     <div class="container">
-        <h1>Edit Profile</h1>
+        <h1>แก้ไขข้อมูลส่วนตัว</h1>
         <div class="col-lg-5 m-auto">
             <form @submit.prevent="submitEditProfile()">
+                <div class="mt-3">
+                    <label class="form-lable mb-1">Email</label>
+                    <input
+                        class="form-control input"
+                        type="text"
+                        for="email"
+                        v-model="profile.email"
+                        disabled
+                    />
+                </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <label class="form-lable mb-1">First Name</label>
                         <input
                             class="form-control input"
                             type="text"
-                            placeholder="John"
                             for="first_name"
                             v-model="profile.first_name"
                         />
@@ -19,7 +28,6 @@
                         <input
                             class="form-control input"
                             type="text"
-                            placeholder="Doe"
                             for="last_name"
                             v-model="profile.last_name"
                         />
@@ -30,13 +38,12 @@
                     <input
                         class="form-control input"
                         type="text"
-                        placeholder="username"
                         for="username"
                         v-model="profile.username"
                     />
                 </div>
                 <div class="d-grid">
-                    <button id="button" class="btn btn-outline-success my-4" type="submit">บันทีก</button>
+                    <button id="button" class="btn btn-outline-success my-4" type="submit">อัพเดตข้อมูล</button>
                 </div>
             </form>
         </div>
@@ -53,7 +60,8 @@ export default {
             profile: {
                 first_name: '',
                 last_name: '',
-                username: ''
+                username: '',
+                email: ''
             },
             userData: []
         }
@@ -70,6 +78,7 @@ export default {
                 this.profile.first_name = this.userData.first_name
                 this.profile.last_name = this.userData.last_name
                 this.profile.username = this.userData.username
+                this.profile.email = this.userData.email
             })
     },
     methods: {
@@ -78,7 +87,7 @@ export default {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'กรุณาเปลี่ยนข้อมูลที่ต้องการดปลี่ยนก่อนกดปุ่มบันทึก',
+                    text: 'กรุณาเปลี่ยนข้อมูลที่ต้องการ ก่อนกดปุ่มอัพเดตข้อมูล',
                     showConfirmButton: true,
                     // timer: 2000
                 })

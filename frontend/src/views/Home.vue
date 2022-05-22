@@ -7,7 +7,7 @@
                     <input
                         class="form-control input"
                         type="text"
-                        placeholder="search by title"
+                        placeholder="ค้นหาโพสต์ How To"
                         for="search"
                         v-model="search"
                     />
