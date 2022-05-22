@@ -3,8 +3,9 @@
         <h3 class="mt-5 fw-bold">ลงทะเบียน</h3>
         <div class="row">
             <div class="col-lg-6 styles">
-                <h1 class="title">How To</h1>
-                <p class="fw-normal">แหล่งรวบรวมการทำ How To สิ่งต่าง ๆ ในโลกใบนี้</p>
+                <!-- <h1 class="title">How To</h1> -->
+                <img class="imgHowTo" src="../assets/how_to.png" />
+                <p class="fw-normal text">แหล่งรวบรวมการทำ How To สิ่งต่าง ๆ ในโลกใบนี้</p>
             </div>
             <div class="col-lg-6">
                 <div class="m-auto">
@@ -207,6 +208,13 @@ export default {
 .styles {
     margin-top: 100px;
 }
+.text {
+    padding-left: 30px;
+}
+.imgHowTo {
+    width: 600px;
+    /* height: 200px; */
+}
 @media only screen and (max-width: 600px) {
     .title {
         font-size: 40px;
@@ -221,6 +229,12 @@ export default {
     }
     .styles {
         margin-top: 0px;
+    }
+    .imgHowTo {
+        width: 300px;
+    }
+    .text {
+        padding-left: 0px;
     }
 }
 </style>
