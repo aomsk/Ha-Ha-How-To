@@ -57,7 +57,7 @@
                             <input
                                 class="form-control input"
                                 type="password"
-                                placeholder="8-20 ตัวอักษร"
+                                placeholder="8-20 ตัวอักษร ต้องมีตัวเลข และอักขระพิเศษด้วย"
                                 for="password"
                                 v-model="singup.password"
                             />
