@@ -4,7 +4,7 @@
         <div class="row styles">
             <div class="col-lg-6 m-auto">
                 <!-- <h1 class="title">How To</h1> -->
-                <img class="imgHowTo" src="../assets/how_to.png" />
+                <img class="img-fluid" src="../assets/how_to.png" />
                 <p class="fw-normal text">แหล่งรวบรวมการทำ How To สิ่งต่าง ๆ ในโลกใบนี้</p>
             </div>
             <div class="col-lg-6">
@@ -176,29 +176,12 @@ export default {
 .text {
     padding-left: 30px;
 }
-.imgHowTo {
-    width: 600px;
-}
-/* @media only screen and (max-width: 400px) {
-    .title {
-        font-size: 40px;
-    }
-    .styles {
-        margin-top: 0px;
-    }
-    .imgHowTo {
-        width: 50px;
-    }
-} */
 @media only screen and (max-width: 600px) {
     .title {
         font-size: 40px;
     }
     .styles {
         margin-top: 0px;
-    }
-    .imgHowTo {
-        width: 200px;
     }
 }
 @media only screen and (max-width: 900px) {
@@ -207,9 +190,6 @@ export default {
     }
     .styles {
         margin-top: 0px;
-    }
-    .imgHowTo {
-        width: 350px;
     }
     .text {
         padding-left: 0px;
