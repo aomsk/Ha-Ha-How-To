@@ -73,7 +73,7 @@
                             />
                         </div>
                         <div class="d-grid">
-                            <button id="button" class="btn btn-outline-primary my-4" type="submit">ลงะทเบียน</button>
+                            <button id="button" class="btn btn-outline-primary my-4" type="submit">ลงทะเบียน</button>
                             <a class="text-center">
                                 <router-link class="nav-link" to="/signin">มี Account แล้ว ต้องการเข้าสู่ระบบ</router-link>
                             </a>
