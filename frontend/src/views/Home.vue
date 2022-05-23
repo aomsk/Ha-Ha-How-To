@@ -35,7 +35,7 @@
         <!-- </form> -->
         <div v-if="result == ''">
             <div class="row mt-3">
-                <h3>มีโพสต์ทั้งหมด {{ filteredPost.length }} โพสต์</h3>
+                <h3>โพสต์ทั้งหมด {{ filteredPost.length }} โพสต์</h3>
                 <div class="col-lg-6" v-for="(post, index) in filteredPost || []" :key="index">
                     <div class="card mt-3 p-2" id="card">
                         <div class="card-body">

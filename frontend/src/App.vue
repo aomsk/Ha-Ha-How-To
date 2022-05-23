@@ -66,7 +66,7 @@
                                     <a class="dropdown-item" href="/my-account">บัญชีของฉัน</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/edit-profile">แก้ไขโปรไฟล์</a>
+                                    <a class="dropdown-item" href="/edit-profile">แก้ไขข้อมูลส่วนตัว</a>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider" />

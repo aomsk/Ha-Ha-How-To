@@ -215,12 +215,26 @@ export default {
     width: 600px;
     /* height: 200px; */
 }
+/* @media only screen and (max-width: 400px) {
+    .title {
+        font-size: 40px;
+    }
+    .styles {
+        margin-top: 0px;
+    }
+    .imgHowTo {
+        width: 50px;
+    }
+} */
 @media only screen and (max-width: 600px) {
     .title {
         font-size: 40px;
     }
     .styles {
         margin-top: 0px;
+    }
+    .imgHowTo {
+        width: 200px;
     }
 }
 @media only screen and (max-width: 900px) {
@@ -231,7 +245,7 @@ export default {
         margin-top: 0px;
     }
     .imgHowTo {
-        width: 300px;
+        width: 350px;
     }
     .text {
         padding-left: 0px;

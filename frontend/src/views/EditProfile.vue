@@ -67,8 +67,7 @@ export default {
         }
     },
     created() {
-        axios
-            .get(process.env.VUE_APP_GET_USER_BY_EMAIL, {
+        axios.get(process.env.VUE_APP_GET_USER_BY_EMAIL, {
                 params: {
                     email: localStorage.getItem('email_user')
                 }
@@ -83,15 +82,6 @@ export default {
     },
     methods: {
         async submitEditProfile() {
-            if (this.profile.first_name == this.userData.first_name || this.profile.last_name == this.userData.last_name || this.profile.username == this.userData.username) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'กรุณาเปลี่ยนข้อมูลที่ต้องการ ก่อนกดปุ่มอัพเดตข้อมูล',
-                    showConfirmButton: true,
-                    // timer: 2000
-                })
-            }
             if (this.profile.first_name !== this.userData.first_name) {
                 const data = {
                     email: this.userData.email,
@@ -121,7 +111,7 @@ export default {
                     console.log(error.response.data)
                 })
             }
-            if (this.profile.last_name !== this.userData.last_name) {
+            else if (this.profile.last_name !== this.userData.last_name) {
                 const data = {
                     email: this.userData.email,
                     updateKey: 'last_name',
@@ -150,7 +140,7 @@ export default {
                     console.log(error.response.data)
                 })
             }
-            if (this.profile.username !== this.userData.username) {
+            else if (this.profile.username !== this.userData.username) {
                 const data = {
                     email: this.userData.email,
                     updateKey: 'username',
@@ -177,6 +167,15 @@ export default {
                 })
                 .catch(error => {
                     console.log(error.response.data)
+                })
+            }
+            else if (this.profile.first_name == this.userData.first_name || this.profile.last_name == this.userData.last_name || this.profile.username == this.userData.username) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'กรุณาเปลี่ยนข้อมูลที่ต้องการ ก่อนกดปุ่มอัพเดตข้อมูล',
+                    showConfirmButton: true,
+                    // timer: 2000
                 })
             }
         }
